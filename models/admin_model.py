@@ -77,3 +77,18 @@ def activar_personal(id, activo):
     conn.commit()
     conn.close()
 
+def borrar_maestro(maestro, id):
+    tablas = {
+        "tipo_terreno":  "TipoTerreno",
+        "seccion_tipo":  "SeccionTipo",
+        "estado_parte":  "EstadoParte",
+        "motivo_exceso": "MotivoExcesoHoras",
+        "personal":      "Personal",
+    }
+    tabla = tablas.get(maestro)
+    if tabla is None:
+        return
+    conn = get_connection()
+    conn.execute(f"DELETE FROM {tabla} WHERE id = ?", (id,))
+    conn.commit()
+    conn.close()
