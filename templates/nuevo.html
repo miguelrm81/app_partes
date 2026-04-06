@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Nuevo Parte</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <nav>
+      <a href="{{ url_for('partes.index') }}" class="logo">Partes de Obra</a>
+      <a href="{{ url_for('partes.index') }}">Listado</a>
+      <a href="{{ url_for('partes.nuevo_parte') }}">Nuevo parte</a>
+    </nav>
+
+<div class="contenedor"></div>
+    <h1>Nuevo Parte de Obra</h1>
+
+    <form method="POST" action="{{url_for('partes.guardar_parte')}}">
+
+      <!-- IDENTIFICACIÓN -->
+      <div class="seccion">
+        <h2>Identificación del parte</h2>
+        <div class="seccion-cuerpo">
+
+          <div class="tres-columnas">
+            <div>
+              <label>Número de parte *</label>
+              <input type="text" name="parte_numero" required>
+            </div>
+            <div>
+              <label>Fecha del parte *</label>
+              <input type="date" name="fecha_parte" required>
+            </div>
+            <div>
+              <label>Estado *</label>
+              <select name="estado_id" required>
+                <option value="">— Selecciona —</option>
+                {% for e in estados %}
+                  <option value="{{ e['id'] }}">{{ e['descripcion'] }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+
+          <div class="dos-columnas">
+            <div>
+              <label>Código de canal</label>
+              <input type="text" name="canal_codigo">
+            </div>
+            <div>
+              <label>Nombre de canal</label>
+              <input type="text" name="canal_nombre">
+            </div>
+          </div>
+          <!-- RESPONSABLE Y RELEVO -->
+          <div class="seccion">
+            <h2>Responsable y relevo</h2>
+            <div class="seccion-cuerpo">
+
+                <div class="dos-columnas">
+                    <div>
+                        <label>Responsable *</label>
+                        <select name="responsable_id" required>
+                            <option value="">— Selecciona —</option>
+                            {% for p in personal %}
+                            <option value="{{ p['id'] }}">{{ p['nombre'] }}</option>
+                            {% endfor %}
+                        </select>    
+                    </div>
+                    <div>
+                        <label>Relevo</label>
+                        <select name="relevo_id">
+                            <option value="">— Selecciona —</option>
+                            {% for p in personal %}
+                            <option value="{{ p['id'] }}">{{ p['nombre'] }}</option>
+                            {% endfor %}
+                        </select>    
+                    </div>
+
+                    <div class="dos-columnas">
+                        <div>
+                        <label>Hora inicio relevo</label>
+                        <input type="time" name="hora_inicio_relevo" id="horaInicio" disabled>
+                        </div>
+                        <div>
+                        <label>Hora fin relevo</label>
+                        <input type="time" name="hora_fin_relevo" id="horaFin" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--UBICACION -->
+            <div class="seccion">
+                <h2>Ubicación y terreno</h2>
+                <div class="seccion-cuerpo">
+
+                <div class="dos-columnas">
+                    <div>
+                    <label>PK Inicio — km</label>
+                    <input type="number" name="pk_inicio_km" placeholder="0" min="0">
+                    </div>
+                    <div>
+                    <label>PK Inicio — m</label>
+                    <input type="number" name="pk_inicio_m" placeholder="0" min="0" max="999">
+                    </div>
+                </div>
+
+                <div class="dos-columnas">
+                    <div>
+                    <label>PK Fin — km</label>
+                    <input type="number" name="pk_fin_km" placeholder="0" min="0">
+                    </div>
+                    <div>
+                    <label>PK Fin — m</label>
+                    <input type="number" name="pk_fin_m" placeholder="0" min="0" max="999">
+                    </div>
+                </div>
+
+                <div class="dos-columnas">
+                    <div>
+                    <label>Tipo de terreno</label>
+                    <select name="tipo_terreno_id">
+                        <option value="">— Selecciona —</option>
+                        {% for t in tipos_terreno %}
+                        <option value="{{ t['id'] }}">{{ t['descripcion'] }}</option>
+                        {% endfor %}
+                    </select>
+                    </div>
+                    <div>
+                    <label>Tipo de sección</label>
+                    <select name="seccion_tipo_id">
+                        <option value="">— Selecciona —</option>
+                        {% for s in secciones_tipo %}
+                        <option value="{{ s['id'] }}">{{ s['descripcion'] }}</option>
+                        {% endfor %}
+                    </select>
+                    </div>
+                </div>
+
+                </div>
+            </div>
+
+            <!-- ACTIVIDADES -->
+                <div class="seccion">
+                    <h2>Actividades y tiempo</h2>
+                    <div class="seccion-cuerpo">
+
+                    <label>Total actividades (min)</label>
+                    <input type="number" name="total_actividades_min" placeholder="0" min="0">
+
+                    <div class="campo-check">
+                        <input type="checkbox" id="chkExceso" name="exceso_justificado" value="1">
+                        <label for="chkExceso">¿Hay exceso de horas justificado?</label>
+                    </div>
+
+                    <div class="dos-columnas">
+                        <div>
+                        <label>Motivo del exceso</label>
+                        <select name="motivo_exceso_id" id="motivoExceso" disabled>
+                            <option value="">— Selecciona —</option>
+                            {% for m in motivos_exceso %}
+                            <option value="{{ m['id'] }}">{{ m['descripcion'] }}</option>
+                            {% endfor %}
+                        </select>
+                        </div>
+                        <div>
+                        <label>Justificación del exceso</label>
+                        <input type="text" name="justificacion_exceso" id="justificacionExceso"
+                                placeholder="Describe el motivo" disabled>
+                        </div>
+                    </div>
+
+                    </div>
+                </div>
+
+                <!-- INCIDENCIAS -->
+                <div class="seccion">
+                    <h2>Incidencias</h2>
+                    <div class="seccion-cuerpo">
+
+                    <div class="campo-check">
+                        <input type="checkbox" name="hubo_averias" value="1">
+                        <label>¿Hubo averías durante el parte?</label>
+                    </div>
+
+                    <div class="campo-check">
+                        <input type="checkbox" name="hubo_paradas" value="1">
+                        <label>¿Hubo paradas no previstas?</label>
+                    </div>
+
+                    <label>Observaciones generales</label>
+                    <textarea name="observaciones" placeholder="Escriba sus observaciones"></textarea>
+
+                    </div>
+                </div>
+
+                <div class="botones-form">
+                    <a href="{{ url_for('partes.index') }}" class="btn-gris">Cancelar</a>
+                    <button type="submit" class="btn-verde">Guardar parte</button>
+                </div>
+
+                </form>
+
+            </div>
+    <script>
+        document.querySelector('[name="fecha_parte"]').valueAsDate = new Date();
+
+        var chk = document.getElementById('chkExceso');
+        var motivo = document.getElementById('motivoExceso');
+        var justificacion = document.getElementById('justificacionExceso');
+
+        chk.addEventListener('change', function() {
+        motivo.disabled = !this.checked;
+        justificacion.disabled = !this.checked;
+        if (!this.checked) {
+            motivo.value = '';
+            justificacion.value = '';
+        }
+        });
+
+        var selectRelevo = document.querySelector('[name="relevo_id"]');
+        var horaInicio = document.getElementById('horaInicio');
+        var horaFin = document.getElementById('horaFin');
+
+        selectRelevo.addEventListener('change', function() {
+        var hayRelevo = this.value !== '';
+        horaInicio.disabled = !hayRelevo;
+        horaFin.disabled = !hayRelevo;
+        if (!hayRelevo) {
+            horaInicio.value = '';
+            horaFin.value = '';
+        }
+        });
+  </script>        
+
+
+</body>
+
+</html>
