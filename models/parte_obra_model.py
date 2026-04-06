@@ -110,10 +110,10 @@ def actualizar_parte(parte_id, datos):
     conn.commit()
     conn.close()
 
-    # Funcion para eliminar un parte existente
+# Funcion para eliminar un parte existente
 
-    def eliminar_parte(parte_id):
-        conn = get_connection()
-        conn.execute("DELETE FROM ParteObra WHERE id = ?", (parte_id,))
-        conn.commit()
-        conn.close()
+def borrar_parte(parte_id):
+    conn = get_connection()
+    conn.execute("DELETE FROM ParteObra WHERE id = ?", (parte_id,))
+    conn.commit()
+    conn.close()
