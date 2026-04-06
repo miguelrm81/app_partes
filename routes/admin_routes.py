@@ -37,3 +37,10 @@ def insertar_maestro(maestro):
 def eliminar_maestro(maestro,id):
     borrar_maestro(maestro, id)
     return redirect(url_for("admin.carga_admin"))
+
+@admin_bp.route("/admin/activar_personal/<int:id>", methods=["POST"])
+def activar_personal_route(id):
+    persona = obtener_personal_por_id(id)
+    nuevo_activo = 0 if persona['activo'] == 1 else 1
+    activar_personal(id, nuevo_activo)
+    return redirect(url_for("admin.carga_admin"))

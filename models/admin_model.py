@@ -28,7 +28,7 @@ def get_motivo_exceso():
 
 def get_personal_activo():
     conn = get_connection()
-    rows = conn.execute("SELECT id, nombre FROM Personal WHERE activo = 1 ORDER BY nombre").fetchall()
+    rows = conn.execute("SELECT id, nombre, activo FROM Personal ORDER BY nombre").fetchall()
     conn.close()
     return rows
 
@@ -92,3 +92,9 @@ def borrar_maestro(maestro, id):
     conn.execute(f"DELETE FROM {tabla} WHERE id = ?", (id,))
     conn.commit()
     conn.close()
+
+def obtener_personal_por_id(id):
+    conn = get_connection()
+    persona = conn.execute("SELECT * FROM Personal WHERE id = ?", (id,)).fetchone()
+    conn.close()
+    return persona

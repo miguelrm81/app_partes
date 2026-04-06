@@ -1,0 +1,258 @@
+
+body {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  background-color: #f5f5f5;
+  color: #3C3C3B;
+  margin: 0;
+  padding: 0;
+}
+
+/* NAVEGACIÓN */
+nav {
+  background-color: #3C3C3B;
+  padding: 12px 20px;
+}
+
+nav a {
+  color: #B3B4B2;
+  text-decoration: none;
+  margin-right: 16px;
+  font-size: 14px;
+}
+
+nav a:hover {
+  color: white;
+}
+
+nav .logo {
+  color: #2DB4AD;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+/* CONTENEDOR PRINCIPAL */
+.contenedor {
+  max-width: 1300px;
+  margin: 30px auto;
+  padding: 0 16px;
+}
+
+/* TÍTULO DE PÁGINA */
+h1 {
+  font-size: 20px;
+  color: #3C3C3B;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 14px;
+  color: white;
+  background-color: #2DB4AD;
+  padding: 8px 14px;
+  margin: 0;
+}
+
+/* SECCIÓN DEL FORMULARIO */
+.seccion {
+  background-color: white;
+  border: 1px solid #B3B4B2;
+  margin-bottom: 18px;
+}
+
+.seccion-cuerpo {
+  padding: 16px;
+}
+
+/* CAMPOS */
+label {
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: #3C3C3B;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="time"],
+input[type="number"],
+select,
+textarea {
+  width: 100%;
+  padding: 7px 10px;
+  border: 1px solid #B3B4B2;
+  border-radius: 3px;
+  font-size: 14px;
+  color: #3C3C3B;
+  background-color: white;
+  margin-bottom: 12px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #2DB4AD;
+}
+
+input:disabled,
+select:disabled,
+textarea:disabled {
+  background-color: #f0f0f0;
+  color: #B3B4B2;
+  cursor: not-allowed;
+}
+
+textarea {
+  resize: vertical;
+  height: 70px;
+}
+
+/* DOS COLUMNAS */
+.dos-columnas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.tres-columnas {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+}
+
+/* CHECKBOX */
+.campo-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.campo-check input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  accent-color: #2DB4AD;
+}
+
+.campo-check label {
+  font-weight: normal;
+  font-size: 13px;
+  margin: 0;
+}
+
+/* BOTONES */
+.btn-verde {
+  background-color: #2DB4AD;
+  color: white;
+  border: none;
+  padding: 9px 20px;
+  font-size: 14px;
+  border-radius: 3px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-verde:hover {
+  background-color: #249d97;
+}
+
+.btn-gris {
+  background-color: white;
+  color: #3C3C3B;
+  border: 1px solid #B3B4B2;
+  padding: 9px 20px;
+  font-size: 14px;
+  border-radius: 3px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-gris:hover {
+  background-color: #f0f0f0;
+}
+
+.botones-form {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+/* TABLA DEL LISTADO */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+}
+
+th {
+  background-color: #3C3C3B;
+  color: white;
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 13px;
+}
+
+td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 13px;
+}
+
+tr:hover td {
+  background-color: #f9f9f9;
+}
+
+/* BOTONES DENTRO DE LA TABLA */
+.btn-tabla-editar {
+  color: #2DB4AD;
+  border: 1px solid #2DB4AD;
+  background: white;
+  padding: 4px 10px;
+  border-radius: 3px;
+  font-size: 12px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-tabla-editar:hover {
+  background-color: #2DB4AD;
+  color: white;
+}
+
+.btn-tabla-borrar {
+  color: #c0392b;
+  border: 1px solid #c0392b;
+  background: white;
+  padding: 4px 10px;
+  border-radius: 3px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.btn-tabla-borrar:hover {
+  background-color: #c0392b;
+  color: white;
+}
+
+/* CABECERA CON TÍTULO Y BOTÓN */
+.cabecera-pagina {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+/* TEXTO VACÍO */
+.sin-datos {
+  text-align: center;
+  padding: 40px;
+  color: #B3B4B2;
+  background-color: white;
+  border: 1px solid #B3B4B2;
+}
