@@ -34,7 +34,7 @@ cursor.execute("""
 cursor.execute("""
     CREATE TABLE IF NOT EXISTS MotivoExcesoHoras(
                id INTEGER PRIMARY KEY AUTOINCREMENT,
-               descripion TEXT NOT NULL)
+               descripcion TEXT NOT NULL)
                """)
 
 # Tabla Estado de los partes
