@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Partes de Obra</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <nav>
+    <a href="{{ url_for('partes.index') }}" class="logo">Partes de Obra</a>
+    <a href="{{ url_for('partes.index') }}">Listado</a> 
+    <a href="{{ url_for('partes.nuevo_parte') }}">Nuevo parte</a>
+    </nav>
+
+    <div class="contenedor">
+        <div class="cabecera-pagina">
+        <h1>Partes registrados</h1>
+        <a href="{{ url_for('partes.nuevo_parte') }}" class="btn-verde">+ Nuevo parte</a>
+        </div>
+
+        {% if partes %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nº Parte</th>
+                        <th>Fecha P.</th>
+                        <th>Fecha Registro</th>
+                        <th>Canal</th>
+                        <th>Responsable</th>
+                        <th>Relevo</th>
+                        <th>Tipo Terreno</th>
+                        <th>Sección Tipo</th>
+                        <th>Total min</th>
+                        <th>Averías</th>
+                        <th>Paradas</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in partes %}
+                        <tr>
+                            <td>{{ p.parte_numero }}</td>
+                            <td>{{ p.fecha_parte }}</td>
+                            <td>{{ p.fecha_registro_utc }}</td>
+                            <td>{{ p.canal_nombre }}</td>
+                            <td>{{ p.responsable }}</td>
+                            <td>{{ p.relevo }}</td>
+                            <td>{{ p.tipo_terreno }}</td>
+                            <td>{{ p.seccion_tipo }}</td>
+                            <td>{{ p.total_actividades_min }}</td>
+                            <td>{{ p.hubo_averias }}</td>
+                            <td>{{ p.hubo_paradas }}</td>
+                            <td>{{ p.estado }}</td>
+                            <td>
+                                <a href="{{ url_for('partes.editar_parte', parte_id=p['id']) }}"
+                                class="btn-tabla-editar">Editar</a>
+
+                                <form method="POST" action="{{ url_for('partes.eliminar_parte', parte_id=p['id']) }}" style="display:inline;" onsubmit="return confirm('¿Seguro que quieres borrar este parte?')">
+                                    <button type="submit" class="btn-tabla-borrar">Borrar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="sin-datos">No hay partes registrados todavía.</div>
+        {% endif %}
+    
+    </div>
+
+</body>
+</html>
