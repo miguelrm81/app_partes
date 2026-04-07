@@ -240,6 +240,21 @@ tr:hover td {
   color: white;
 }
 
+.btn-tabla-activar {
+  color: #2DB4AD;
+  border: 1px solid #2DB4AD;
+  background: white;
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.btn-tabla-activar:hover {
+  background-color: #2DB4AD;
+  color: white;
+}
+
 /* CABECERA CON TÍTULO Y BOTÓN */
 .cabecera-pagina {
   display: flex;
@@ -255,4 +270,20 @@ tr:hover td {
   color: #B3B4B2;
   background-color: white;
   border: 1px solid #B3B4B2;
+}
+
+/* ADMIN */
+.boton_admin {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.boton_admin input {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.boton_admin button {
+  white-space: nowrap;
 }
