@@ -6,8 +6,14 @@ parte_bp = Blueprint('partes', __name__)
 # Ruta para listar los partes
 @parte_bp.route('/')
 def index():
-    partes = obtener_partes()
-    return render_template("index.html", partes = partes)
+    parte_numero = request.args.get('parte_numero')
+    fecha_parte = request.args.get('fecha_parte')
+    estado_id = request.args.get('estado_id')
+    responsable_id = request.args.get('responsable_id')
+    partes = obtener_partes(parte_numero, fecha_parte, estado_id, responsable_id)
+    estados = get_estados()
+    personal = get_personal_activo()
+    return render_template("index.html", partes = partes, estados=estados, parte_numero=parte_numero, fecha_parte=fecha_parte, estado_id=estado_id, responsable_id=responsable_id, personal=personal)
 
 #Ruta para el formulario de nuevo parte
 

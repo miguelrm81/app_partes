@@ -53,6 +53,11 @@ h2 {
   margin: 0;
 }
 
+h3 {
+  text-align: center;
+  margin: 8px;
+}
+
 /* SECCIÓN DEL FORMULARIO */
 .seccion {
   max-width: 1000px;
@@ -273,6 +278,20 @@ tr:hover td {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
+}
+
+.filtros form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filtros input,
+.filtros select {
+    width: auto;
+    margin-bottom: 0;
+    padding: 6px 8px;
+    font-size: 12px;
 }
 
 /* TEXTO VACÍO */

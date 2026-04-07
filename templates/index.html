@@ -17,8 +17,50 @@
     <div class="contenedor">
         <div class="cabecera-pagina">
         <h1>Partes registrados</h1>
-        <a href="{{ url_for('partes.nuevo_parte') }}" class="btn-verde">+ Nuevo parte</a>
+        <div class="filtros">
+            <h3>Filtros de búsqueda</h3>
+            <form method="GET" action="{{ url_for('partes.index') }}">
+                <div>
+                    <label style="text-align: center;">Nº parte</label>
+                <input type="text" name="parte_numero" 
+                    value="{{ parte_numero or '' }}" 
+                    placeholder="Nº parte">
+                </div>
+                <div>
+                    <label style="text-align: center;">Fecha del parte</label>      
+                <input type="date" name="fecha_parte"
+                    value="{{ fecha_parte or '' }}">
+                </div>
+                <div>
+                    <label style="text-align: center;">Estado</label>
+                    <select name="estado_id">
+                        <option value="">Estados</option>
+                        {% for e in estados %}
+                            <option value="{{ e['id'] }}"
+                                {{ 'selected' if estado_id == e['id']|string }}>
+                                {{ e['descripcion'] }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <label style="text-align: center;">Responsable</label>
+                    <select name="responsable_id">
+                        <option value="">Responsables</option>
+                        {% for p in personal %}
+                            <option value="{{ p['id'] }}"
+                                {{ 'selected' if responsable_id == p['id']|string }}>
+                                {{ p['nombre'] }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn-verde">Buscar</button>
+                <a href="{{ url_for('partes.index') }}" class="btn-gris">Limpiar</a>
+            </form>
         </div>
+        <a href="{{ url_for('partes.nuevo_parte') }}" class="btn-verde">+ Nuevo parte</a>
+    </div>
 
         {% if partes %}
             <table>
@@ -36,6 +78,7 @@
                         <th>Averías</th>
                         <th>Paradas</th>
                         <th>Estado</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
