@@ -14,7 +14,7 @@
       <a href="{{ url_for('admin.carga_admin') }}">Administración</a>
     </nav>
 
-<div class="contenedor"></div>
+<div class="contenedor">
     <h1>Nuevo Parte de Obra</h1>
 
     <form method="POST" action="{{url_for('partes.guardar_parte')}}">
@@ -43,7 +43,7 @@
               </select>
             </div>
           </div>
-
+        
           <div class="dos-columnas">
             <div>
               <label>Código de canal</label>
@@ -54,8 +54,10 @@
               <input type="text" name="canal_nombre">
             </div>
           </div>
-          <!-- RESPONSABLE Y RELEVO -->
-          <div class="seccion">
+        </div>
+      </div>
+        <!-- RESPONSABLE Y RELEVO -->
+        <div class="seccion">
             <h2>Responsable y relevo</h2>
             <div class="seccion-cuerpo">
 
@@ -81,83 +83,84 @@
 
                     <div class="dos-columnas">
                         <div>
-                        <label>Hora inicio relevo</label>
-                        <input type="time" name="hora_inicio_relevo" id="horaInicio" disabled>
+                            <label>Hora inicio relevo</label>
+                            <input type="time" name="hora_inicio_relevo" id="horaInicio" disabled>
                         </div>
                         <div>
-                        <label>Hora fin relevo</label>
-                        <input type="time" name="hora_fin_relevo" id="horaFin" disabled>
+                            <label>Hora fin relevo</label>
+                            <input type="time" name="hora_fin_relevo" id="horaFin" disabled>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!--UBICACION -->
-            <div class="seccion">
-                <h2>Ubicación y terreno</h2>
-                <div class="seccion-cuerpo">
+        <!--UBICACION -->
+        <div class="seccion">
+            <h2>Ubicación y terreno</h2>
+            <div class="seccion-cuerpo">
 
                 <div class="dos-columnas">
                     <div>
-                    <label>PK Inicio — km</label>
-                    <input type="number" name="pk_inicio_km" placeholder="0" min="0">
+                        <label>PK Inicio — km</label>
+                        <input type="number" name="pk_inicio_km" placeholder="0" min="0">
                     </div>
                     <div>
-                    <label>PK Inicio — m</label>
-                    <input type="number" name="pk_inicio_m" placeholder="0" min="0" max="999">
+                        <label>PK Inicio — m</label>
+                        <input type="number" name="pk_inicio_m" placeholder="0" min="0" max="999">
                     </div>
                 </div>
 
                 <div class="dos-columnas">
                     <div>
-                    <label>PK Fin — km</label>
-                    <input type="number" name="pk_fin_km" placeholder="0" min="0">
+                        <label>PK Fin — km</label>
+                        <input type="number" name="pk_fin_km" placeholder="0" min="0">
                     </div>
                     <div>
-                    <label>PK Fin — m</label>
-                    <input type="number" name="pk_fin_m" placeholder="0" min="0" max="999">
+                        <label>PK Fin — m</label>
+                        <input type="number" name="pk_fin_m" placeholder="0" min="0" max="999">
                     </div>
                 </div>
 
                 <div class="dos-columnas">
                     <div>
-                    <label>Tipo de terreno</label>
-                    <select name="tipo_terreno_id">
+                        <label>Tipo de terreno</label>
+                        <select name="tipo_terreno_id">
                         <option value="">— Selecciona —</option>
                         {% for t in tipos_terreno %}
                         <option value="{{ t['id'] }}">{{ t['descripcion'] }}</option>
                         {% endfor %}
-                    </select>
+                        </select>
                     </div>
                     <div>
-                    <label>Tipo de sección</label>
-                    <select name="seccion_tipo_id">
+                        <label>Tipo de sección</label>
+                        <select name="seccion_tipo_id">
                         <option value="">— Selecciona —</option>
                         {% for s in secciones_tipo %}
                         <option value="{{ s['id'] }}">{{ s['descripcion'] }}</option>
                         {% endfor %}
-                    </select>
+                        </select>
                     </div>
                 </div>
 
-                </div>
             </div>
+        </div>
 
-            <!-- ACTIVIDADES -->
-                <div class="seccion">
-                    <h2>Actividades y tiempo</h2>
-                    <div class="seccion-cuerpo">
+        <!-- ACTIVIDADES -->
+        <div class="seccion">
+            <h2>Actividades y tiempo</h2>
+            <div class="seccion-cuerpo">
 
-                    <label>Total actividades (min)</label>
-                    <input type="number" name="total_actividades_min" placeholder="0" min="0">
+                <label>Total actividades (min)</label>
+                <input type="number" name="total_actividades_min" placeholder="0" min="0">
 
-                    <div class="campo-check">
-                        <input type="checkbox" id="chkExceso" name="exceso_justificado" value="1">
-                        <label for="chkExceso">¿Hay exceso de horas justificado?</label>
-                    </div>
+                <div class="campo-check">
+                    <input type="checkbox" id="chkExceso" name="exceso_justificado" value="1">
+                    <label for="chkExceso">¿Hay exceso de horas justificado?</label>
+                </div>
 
-                    <div class="dos-columnas">
-                        <div>
+                <div class="dos-columnas">
+                    <div>
                         <label>Motivo del exceso</label>
                         <select name="motivo_exceso_id" id="motivoExceso" disabled>
                             <option value="">— Selecciona —</option>
@@ -165,46 +168,46 @@
                             <option value="{{ m['id'] }}">{{ m['descripcion'] }}</option>
                             {% endfor %}
                         </select>
-                        </div>
-                        <div>
+                    </div>
+                    <div>
                         <label>Justificación del exceso</label>
                         <input type="text" name="justificacion_exceso" id="justificacionExceso"
-                                placeholder="Describe el motivo" disabled>
-                        </div>
-                    </div>
-
+                            placeholder="Describe el motivo" disabled>
                     </div>
                 </div>
-
-                <!-- INCIDENCIAS -->
-                <div class="seccion">
-                    <h2>Incidencias</h2>
-                    <div class="seccion-cuerpo">
-
-                    <div class="campo-check">
-                        <input type="checkbox" name="hubo_averias" value="1">
-                        <label>¿Hubo averías durante el parte?</label>
-                    </div>
-
-                    <div class="campo-check">
-                        <input type="checkbox" name="hubo_paradas" value="1">
-                        <label>¿Hubo paradas no previstas?</label>
-                    </div>
-
-                    <label>Observaciones generales</label>
-                    <textarea name="observaciones" placeholder="Escriba sus observaciones"></textarea>
-
-                    </div>
-                </div>
-
-                <div class="botones-form">
-                    <a href="{{ url_for('partes.index') }}" class="btn-gris">Cancelar</a>
-                    <button type="submit" class="btn-verde">Guardar parte</button>
-                </div>
-
-                </form>
 
             </div>
+        </div>
+
+        <!-- INCIDENCIAS -->
+        <div class="seccion">
+            <h2>Incidencias</h2>
+            <div class="seccion-cuerpo">
+
+                <div class="campo-check">
+                    <input type="checkbox" name="hubo_averias" value="1">
+                    <label>¿Hubo averías durante el parte?</label>
+                </div>
+
+                <div class="campo-check">
+                    <input type="checkbox" name="hubo_paradas" value="1">
+                    <label>¿Hubo paradas no previstas?</label>
+                </div>
+
+                <label>Observaciones generales</label>
+                <textarea name="observaciones" placeholder="Escriba sus observaciones"></textarea>
+
+            </div>
+        </div>
+
+        <div class="botones-form">
+            <a href="{{ url_for('partes.index') }}" class="btn-gris">Cancelar</a>
+            <button type="submit" class="btn-verde">Guardar parte</button>
+        </div>
+
+    </form>
+
+</div>
     <script>
         document.querySelector('[name="fecha_parte"]').valueAsDate = new Date();
 

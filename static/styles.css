@@ -59,8 +59,6 @@ h2 {
   background-color: white;
   border: 1px solid #B3B4B2;
   margin-bottom: 18px;
-  margin: 30px auto;
-  padding: 0 16px;
 }
 
 .seccion-cuerpo {
@@ -80,9 +78,9 @@ input[type="text"],
 input[type="date"],
 input[type="time"],
 input[type="number"],
-select,
-textarea {
-  width: 100%;
+select
+{
+  width: 80%;
   padding: 7px 10px;
   border: 1px solid #B3B4B2;
   border-radius: 3px;
@@ -90,6 +88,17 @@ textarea {
   color: #3C3C3B;
   background-color: white;
   margin-bottom: 12px;
+}
+
+textarea {
+    width: 98%;
+    padding: 7px 5px;
+    border: 1px solid #B3B4B2;
+    border-radius: 3px;
+    font-size: 14px;
+    color: #3C3C3B;
+    background-color: white;
+    margin-bottom: 12px;
 }
 
 input:focus,
@@ -122,7 +131,7 @@ textarea {
 .tres-columnas {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 14px;
+  gap: 8px;
 }
 
 /* CHECKBOX */
@@ -181,7 +190,7 @@ textarea {
 
 .botones-form {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 10px;
   margin-top: 6px;
 }
