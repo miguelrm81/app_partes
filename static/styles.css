@@ -286,9 +286,11 @@ tr:hover td {
 
 /* ADMIN */
 .boton_admin {
-  display: flex;
+  
   gap: 8px;
   margin-top: 10px;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 .boton_admin input {
@@ -298,4 +300,9 @@ tr:hover td {
 
 .boton_admin button {
   white-space: nowrap;
+}
+
+.logout {
+  align-self: flex-end;
+  color: red;
 }
