@@ -11,6 +11,7 @@
     <a href="{{ url_for('partes.index') }}" class="logo">Partes de Obra</a>
     <a href="{{ url_for('partes.index') }}">Listado</a> 
     <a href="{{ url_for('partes.nuevo_parte') }}">Nuevo parte</a>
+    <a href="{{ url_for('admin.carga_admin') }}">Administración</a>
     </nav>
 
     <div class="contenedor">
@@ -48,15 +49,15 @@
                             <td>{{ p.relevo }}</td>
                             <td>{{ p.tipo_terreno }}</td>
                             <td>{{ p.seccion_tipo }}</td>
-                            <td>{{ p.total_actividades_min }}</td>
-                            <td>{{ p.hubo_averias }}</td>
-                            <td>{{ p.hubo_paradas }}</td>
+                            <td>{{ p.total_actividades_min  or "-" }}</td>
+                            <td>{{ "Sí" if p["hubo_averias"] == 1 else "No" }}</td>
+                            <td>{{ "Sí" if p["hubo_paradas"] == 1 else "No" }}</td>
                             <td>{{ p.estado }}</td>
                             <td>
                                 <a href="{{ url_for('partes.editar_parte', parte_id=p['id']) }}"
                                 class="btn-tabla-editar">Editar</a>
 
-                                <form method="POST" action="{{ url_for('partes.eliminar_parte', parte_id=p['id']) }}" style="display:inline;" onsubmit="return confirm('¿Seguro que quieres borrar este parte?')">
+                                <form method="POST" action="{{ url_for('partes.borrar_parte_route', parte_id=p['id']) }}" style="display:inline;" onsubmit="return confirm('¿Seguro que quieres borrar este parte?')">
                                     <button type="submit" class="btn-tabla-borrar">Borrar</button>
                                 </form>
                             </td>

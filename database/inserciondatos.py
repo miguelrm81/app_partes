@@ -4,7 +4,7 @@ conn = sqlite3.connect("database/teciman.db")
 cursor = conn.cursor()
 if cursor.execute("SELECT COUNT(*) FROM Personal").fetchone()[0] == 0:
     cursor.executemany(
-        "INSTERT INTO Personal (nombre, activo) VALUES (?, ?)", [
+        "INSERT INTO Personal (nombre, activo) VALUES (?, ?)", [
         ("Juan", 1),
         ("Marta", 1),
         ("Miguel", 1),

@@ -9,7 +9,7 @@ def carga_admin():
     secciones_tipo = get_seccion_tipo()
     estados = get_estados()
     motivos_exceso = get_motivo_exceso()
-    personal = get_personal_activo()
+    personal = get_personal()
     return render_template("admin.html", tipos_terreno=tipos_terreno, secciones_tipo=secciones_tipo, 
                            estados=estados, motivos_exceso=motivos_exceso, personal=personal)
 

@@ -37,13 +37,53 @@ def get_personal_activo():
 def insertar_parte(datos):
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute(""" INSERT INTO ParteObra (parte_numero, fecha_parte, canal_codigo, canal_nombre,
-                        responsable_id, relevo_id, hora_inicio_relevo, hora_fin_relevo, pk_inicio,km, 
-                        pk_inicio_m, pk_fin_km, pk_fin_m, tipo_terreno_id, seccion_tipo_id, estado_id)
-                        VALUES (:parte_numero, :fecha_parte, :canal_codigo, :canal_nombre, :responsable_id, 
-                        :relevo_id,:hora_inicio_relevo, :hora_fin_relevo, :pk_inicio_km, :pk_inicio_m, 
-                        :pk_fin_km, :pk_fin_m,:tipo_terreno_id, :seccion_tipo_id, :estado_id)
-                        """, datos)
+    cursor.execute(""" INSERT INTO ParteObra (
+            parte_numero,
+            fecha_parte,
+            canal_codigo,
+            canal_nombre,
+            responsable_id,
+            relevo_id,
+            hora_inicio_relevo,
+            hora_fin_relevo,
+            pk_inicio_km,
+            pk_inicio_m,
+            pk_fin_km,
+            pk_fin_m,
+            tipo_terreno_id,
+            seccion_tipo_id,
+            total_actividades_min,
+            exceso_justificado,
+            motivo_exceso_id,
+            justificacion_exceso,
+            hubo_averias,
+            hubo_paradas,
+            observaciones,
+            estado_id
+        ) VALUES (
+            :parte_numero,
+            :fecha_parte,
+            :canal_codigo,
+            :canal_nombre,
+            :responsable_id,
+            :relevo_id,
+            :hora_inicio_relevo,
+            :hora_fin_relevo,
+            :pk_inicio_km,
+            :pk_inicio_m,
+            :pk_fin_km,
+            :pk_fin_m,
+            :tipo_terreno_id,
+            :seccion_tipo_id,
+            :total_actividades_min,
+            :exceso_justificado,
+            :motivo_exceso_id,
+            :justificacion_exceso,
+            :hubo_averias,
+            :hubo_paradas,
+            :observaciones,
+            :estado_id
+        )""", datos)
     conn.commit()
     conn.close()
 

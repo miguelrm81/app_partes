@@ -55,9 +55,12 @@ h2 {
 
 /* SECCIÓN DEL FORMULARIO */
 .seccion {
+  max-width: 1000px;
   background-color: white;
   border: 1px solid #B3B4B2;
   margin-bottom: 18px;
+  margin: 30px auto;
+  padding: 0 16px;
 }
 
 .seccion-cuerpo {
