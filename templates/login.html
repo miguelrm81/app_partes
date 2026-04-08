@@ -6,19 +6,21 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <div class="contenedor">
+    <div class="login-container">
         <h1>Login</h1>
         <form method="POST" action="{{ url_for('admin.login_admin_post') }}">
             <div>
-                <label>Usuario</label>
+                <label class="label-login">Usuario</label>
                 <input type="text" name="username" required>
             </div>
             <div>
-                <label>Contraseña</label>
+                <label class="label-login">Contraseña</label>
                 <input type="password" name="password" required>
             </div>
-            <button type="submit">Iniciar sesión</button>
-            <a href="{{ url_for('partes.index') }}" class="btn-tabla-borrar">Volver</a>
+            <div class="login-botones">
+                <button type="submit">Iniciar sesión</button>
+                <a href="{{ url_for('partes.index') }}">Volver</a>
+            </div>
         </form>
         {% if error %}
             <p style="color: red;">{{ error }}</p>
