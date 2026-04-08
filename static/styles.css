@@ -36,13 +36,16 @@ nav .logo {
   max-width: 1300px;
   margin: 30px auto;
   padding: 0 16px;
+  
 }
+
 
 /* TÍTULO DE PÁGINA */
 h1 {
   font-size: 20px;
   color: #3C3C3B;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 h2 {
@@ -134,6 +137,12 @@ textarea {
   gap: 14px;
 }
 
+.dos-columnas-admin {
+  display: grid;
+  grid-template-columns: 0.66fr 1.33fr;
+  gap: 14px;
+}
+
 .tres-columnas {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -166,7 +175,7 @@ textarea {
   background-color: #2DB4AD;
   color: white;
   border: none;
-  padding: 9px 20px;
+  padding: 8px 20px;
   font-size: 14px;
   border-radius: 3px;
   cursor: pointer;
@@ -306,15 +315,22 @@ tr:hover td {
 
 /* ADMIN */
 .boton_admin {
-  
   gap: 8px;
   margin-top: 10px;
   text-align: center;
   margin-bottom: 10px;
 }
 
+.boton_admin form {
+  display: grid;
+  grid-template-columns: 1fr auto; 
+  gap: 8px;
+  align-items: center; 
+}
+
 .boton_admin input {
-  flex: 1;
+  width: 100%;
+  box-sizing: border-box;
   margin-bottom: 0;
 }
 
