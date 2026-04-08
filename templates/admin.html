@@ -17,7 +17,7 @@
 
 <div class="contenedor">
     <h1>Administracion de datos maestros</h1>
-    <div class="tres-columnas">
+    <div class="cuatro-columnas">
         <div>
             <h2>Tipos de terreno</h2>
                 <table>
@@ -112,79 +112,81 @@
                 </form>
             </div>
         </div>
-    </div>
-        
-    <div class ="dos-columnas-admin">
-        <div>    
-            <h2>Motivos de exceso</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Descripción</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for m in motivos_exceso %}
-                        <tr>
-                            <td>{{ m['id'] }}</td>
-                            <td>{{ m['descripcion'] }}</td>
-                            <td>
-                                <form method="POST" action="{{ url_for('admin.eliminar_maestro', maestro='motivo_exceso', id=m['id']) }}" style="display:inline;" onsubmit="return confirm('¿Seguro que quieres borrar este motivo de exceso?')">
-                                        <button type="submit" class="btn-tabla-borrar">Borrar</button>
-                                </form>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <div class="boton_admin">
-                <form method="POST" action="{{ url_for('admin.insertar_maestro', maestro='motivo_exceso') }}">
-                    <input type="text" name="descripcion">
-                    <button type="submit" class="btn-verde">Añadir</button>
-                </form>
-            </div>
-        </div>
     
+        
         <div>
-            <h2>Responsables</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Activo</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for p in personal %}
+            <div>    
+                <h2>Motivos de exceso</h2>
+                <table>
+                    <thead>
                         <tr>
-                            <td>{{ p['id'] }}</td>
-                            <td>{{ p['nombre'] }}</td>
-                            <td>{{ 'Si' if p['activo'] == 1 else 'No' }}</td>
-                            <td>
-                                <form method="POST" action="{{ url_for('admin.eliminar_maestro', maestro='personal', id=p['id']) }}" style="display:inline;" onsubmit="return confirm('¿Seguro que quieres borrar este responsable?')">
-                                        <button type="submit" class="btn-tabla-borrar">Borrar</button>
-                                </form>
-                                <form method="POST" action="{{ url_for('admin.activar_personal_route', id=p['id']) }}" style="display:inline;" onsubmit="return confirm('¿Seguro que quieres cambiar el estado de este responsable?')">
-                                        <button type="submit" class="btn-tabla-activar">{{ 'Desactivar' if p['activo'] == 1 else 'Activar' }}</button>
-                                </form>
-
-                            </td>
+                            <th>ID</th>
+                            <th>Descripción</th>
+                            <th>Acciones</th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <div class="boton_admin">
-                <form method="POST" action="{{ url_for('admin.insertar_maestro', maestro='personal') }}">
-                    <input type="text" name="nombre" placeholder="Nombre">
-                    <button type="submit" class="btn-verde">Añadir</button>
-                </form>
+                    </thead>
+                    <tbody>
+                        {% for m in motivos_exceso %}
+                            <tr>
+                                <td>{{ m['id'] }}</td>
+                                <td>{{ m['descripcion'] }}</td>
+                                <td>
+                                    <form method="POST" action="{{ url_for('admin.eliminar_maestro', maestro='motivo_exceso', id=m['id']) }}" style="display:inline;" onsubmit="return confirm('¿Seguro que quieres borrar este motivo de exceso?')">
+                                            <button type="submit" class="btn-tabla-borrar">Borrar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="boton_admin">
+                    <form method="POST" action="{{ url_for('admin.insertar_maestro', maestro='motivo_exceso') }}">
+                        <input type="text" name="descripcion">
+                        <button type="submit" class="btn-verde">Añadir</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
+
+    <div>
+        <h2>Responsables</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Activo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in personal %}
+                    <tr>
+                        <td>{{ p['id'] }}</td>
+                        <td>{{ p['nombre'] }}</td>
+                        <td>{{ 'Si' if p['activo'] == 1 else 'No' }}</td>
+                        <td>
+                            <form method="POST" action="{{ url_for('admin.eliminar_maestro', maestro='personal', id=p['id']) }}" style="display:inline;" onsubmit="return confirm('¿Seguro que quieres borrar este responsable?')">
+                                    <button type="submit" class="btn-tabla-borrar">Borrar</button>
+                            </form>
+                            <form method="POST" action="{{ url_for('admin.activar_personal_route', id=p['id']) }}" style="display:inline;" onsubmit="return confirm('¿Seguro que quieres cambiar el estado de este responsable?')">
+                                    <button type="submit" class="btn-tabla-activar">{{ 'Desactivar' if p['activo'] == 1 else 'Activar' }}</button>
+                            </form>
+
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="boton_admin">
+            <form method="POST" action="{{ url_for('admin.insertar_maestro', maestro='personal') }}">
+                <input type="text" name="nombre" placeholder="Nombre">
+                <button type="submit" class="btn-verde">Añadir</button>
+            </form>
+        </div>
+    </div>
+    
 </div>
 </body>
 </html>

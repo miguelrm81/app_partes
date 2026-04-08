@@ -149,6 +149,12 @@ textarea {
   gap: 8px;
 }
 
+.cuatro-columnas {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 6px;
+}
+
 /* CHECKBOX */
 .campo-check {
   display: flex;
