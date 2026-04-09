@@ -67,7 +67,7 @@
                         <select name="responsable_id" required>
                             <option value="">— Selecciona —</option>
                             {% for p in personal %}
-                            <option value="{{ p['id'] }}">{{ p['nombre'] }}</option>
+                            <option value="{{ p['id'] }}">{{ p['nombre'] }} {{ p['apellido1'] }}</option>
                             {% endfor %}
                         </select>    
                     </div>
@@ -76,7 +76,7 @@
                         <select name="relevo_id">
                             <option value="">— Selecciona —</option>
                             {% for p in personal %}
-                            <option value="{{ p['id'] }}">{{ p['nombre'] }}</option>
+                            <option value="{{ p['id'] }}">{{ p['nombre'] }} {{ p['apellido1'] }}</option>
                             {% endfor %}
                         </select>    
                     </div>

@@ -80,7 +80,7 @@
                 {% for p in personal %}
                   <option value="{{ p['id'] }}"
                     {{ 'selected' if p['id'] == parte['responsable_id'] }}>
-                    {{ p['nombre'] }} 
+                    {{ p['nombre'] }} {{ p['apellido1'] }}
                   </option>
                 {% endfor %}
               </select>
@@ -92,7 +92,7 @@
                 {% for p in personal %}
                   <option value="{{ p['id'] }}"
                     {{ 'selected' if p['id'] == parte['relevo_id'] }}>
-                    {{ p['nombre'] }} 
+                    {{ p['nombre'] }} {{ p['apellido1'] }}
                   </option>
                 {% endfor %}
               </select>

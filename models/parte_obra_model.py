@@ -28,7 +28,7 @@ def get_motivo_exceso():
 
 def get_personal_activo():
     conn = get_connection()
-    rows = conn.execute("SELECT id, nombre FROM Personal WHERE activo = 1 ORDER BY nombre").fetchall()
+    rows = conn.execute("SELECT id, nombre, apellido1 FROM Personal WHERE activo = 1 ORDER BY nombre").fetchall()
     conn.close()
     return rows
 
