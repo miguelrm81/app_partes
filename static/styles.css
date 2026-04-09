@@ -39,6 +39,55 @@ nav .logo {
   
 }
 
+.contenedor-admin {
+  max-width: 1300px;
+  margin: 30px auto;
+  padding: 0 16px;
+  
+}
+
+.contenedor-admin h2 {
+  font-size: 14px;
+  color: white;
+  background-color: #2DB4AD;
+  padding: 8px 14px;
+  margin: 0;
+  text-align: center;
+}
+
+.contenedor-admin h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #3C3C3B;
+  font-weight: bold;
+  font-size: 20px;
+  background-color: #B3B4B2;
+  height: 20px;
+  padding: 8px 0;
+  
+}
+
+
+.contenedor-tabla {
+  height: 220px;       
+  overflow-y: auto;    
+  border: 1px solid #B3B4B2;
+  background-color: white;
+  margin-bottom: 10px;
+}
+
+.contenedor-tabla td {
+  height: 35px;           
+  padding: 6px 10px;     
+  box-sizing: border-box; 
+}
+
+.contenedor-tabla thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1; 
+  background-color: #3C3C3B; 
+}
 
 /* TÍTULO DE PÁGINA */
 h1 {
