@@ -115,6 +115,8 @@ h1 {
   color: #3C3C3B;
   margin-bottom: 20px;
   text-align: center;
+  background-color: #B3B4B2;
+  padding: 5px 10px;
 }
 
 h2 {
@@ -376,6 +378,19 @@ tr:hover td {
     display: flex;
     align-items: center;
     gap: 8px;
+}
+.filtros {
+  align-items: center;
+  text-align: center;
+  
+  
+}
+.filtros h3 {
+  display: inline-block;
+  border: 2px solid #3C3C3B;
+  padding: 5px 10px;
+  color: #2DB4AD;
+  
 }
 
 .filtros input,
