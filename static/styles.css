@@ -310,7 +310,7 @@ th {
 }
 
 td {
-  padding: 10px 14px;
+  padding: 8px 14px;
   border-bottom: 1px solid #e5e5e5;
   font-size: 13px;
 }
@@ -530,4 +530,34 @@ tr:hover td {
 .contenedor-nuevo p {
   margin-top: 0;
   margin-bottom: 2px;
+}
+
+/* PAGINACIÓN */
+
+.paginacion {
+    display: flex;
+    gap: 6px;
+    margin-top: 16px;
+    justify-content: center;
+}
+
+.paginacion a {
+    padding: 6px 12px;
+    border: 1px solid #B3B4B2;
+    border-radius: 3px;
+    text-decoration: none;
+    color: #3C3C3B;
+    font-size: 13px;
+}
+
+.paginacion a:hover {
+    background-color: #2DB4AD;
+    color: white;
+    border-color: #2DB4AD;
+}
+
+.pagina-activa {
+    background-color: #2DB4AD;
+    color: white !important;
+    border-color: #2DB4AD !important;
 }

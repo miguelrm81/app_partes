@@ -89,7 +89,7 @@ def insertar_parte(datos):
 
 #funcion para obtener todos los partes
 
-def obtener_partes(parte_numero=None, fecha_parte=None, estado_id=None, responsable_id=None):
+def obtener_partes(parte_numero=None, fecha_parte=None, estado_id=None, responsable_id=None, pagina=1, por_pagina=15):
     conn = get_connection()
     query = """ SELECT
                         p.id, p.parte_numero, p.fecha_parte,p.fecha_registro_utc, p.canal_nombre,
@@ -125,7 +125,11 @@ def obtener_partes(parte_numero=None, fecha_parte=None, estado_id=None, responsa
         query += " AND p.responsable_id = ?"
         params.append(responsable_id)
 
-    query += " ORDER BY p.fecha_registro_utc DESC"
+    offset = (pagina - 1) * por_pagina
+    query += " ORDER BY p.fecha_registro_utc DESC LIMIT ? OFFSET ?"
+    params.append(por_pagina)
+    params.append(offset)
+
     rows = conn.execute(query, params).fetchall()
     conn.close()
     return rows
@@ -185,3 +189,30 @@ def comprobar_num_parte(parte_numero):
     row = conn.execute("SELECT id FROM parteObra WHERE parte_numero = ?", (parte_numero,)).fetchone()
     conn.close()
     return row is not None
+
+# Funcion para contar cantidad de partes para hacer la paginacion del index.html
+
+def contar_partes(parte_numero=None, fecha_parte=None, estado_id=None, responsable_id=None):
+    conn = get_connection()
+    query = "SELECT COUNT(*) FROM parteObra WHERE 1=1"
+    params = []
+
+    if parte_numero:
+        query += " AND parte_numero LIKE ?"
+        params.append(f"%{parte_numero}%")
+
+    if fecha_parte:
+        query += " AND fecha_parte = ?"
+        params.append(fecha_parte)
+    
+    if estado_id:    
+        query += " AND estado_id = ?"
+        params.append(estado_id)
+
+    if responsable_id:
+        query += " AND responsable_id = ?"
+        params.append(responsable_id)
+    
+    total = conn.execute(query, params).fetchone()[0]
+    conn.close()
+    return total

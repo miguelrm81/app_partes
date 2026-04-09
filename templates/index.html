@@ -64,7 +64,7 @@
             </form>
         </div>
         <a href="{{ url_for('partes.nuevo_parte') }}" class="btn-verde">+ Nuevo parte</a>
-    </div>
+        </div>
 
         {% if partes %}
             <table>
@@ -93,9 +93,9 @@
                             <td>{{ p.fecha_registro_utc }}</td>
                             <td>{{ p.canal_nombre }}</td>
                             <td>{{ p.responsable }}</td>
-                            <td>{{ p.relevo }}</td>
-                            <td>{{ p.tipo_terreno }}</td>
-                            <td>{{ p.seccion_tipo }}</td>
+                            <td>{{ p.relevo or "-" }}</td>
+                            <td>{{ p.tipo_terreno or "-" }}</td>
+                            <td>{{ p.seccion_tipo or "-" }}</td>
                             <td>{{ p.total_actividades_min  or "-" }}</td>
                             <td>{{ "Sí" if p["hubo_averias"] == 1 else "No" }}</td>
                             <td>{{ "Sí" if p["hubo_paradas"] == 1 else "No" }}</td>
@@ -115,7 +115,32 @@
         {% else %}
             <div class="sin-datos">No hay partes registrados todavía.</div>
         {% endif %}
-    
+        
+        {% if total_paginas > 1 %}
+            <div class="paginacion">
+
+                {% if pagina > 1 %}
+                    <a href="?pagina={{ pagina - 1 }}&parte_numero={{ parte_numero or '' }}&fecha_parte={{ fecha_parte or '' }}&estado_id={{ estado_id or '' }}&responsable_id={{ responsable_id or '' }}">
+                        Anterior
+                    </a>
+                {% endif %}
+
+                {% for p in range(1, total_paginas + 1) %}
+                    <a href="?pagina={{ p }}&parte_numero={{ parte_numero or '' }}&fecha_parte={{ fecha_parte or '' }}&estado_id={{ estado_id or '' }}&responsable_id={{ responsable_id or '' }}"
+                    class="{{ 'pagina-activa' if p == pagina else '' }}">
+                        {{ p }}
+                    </a>
+                {% endfor %}
+
+                {% if pagina < total_paginas %}
+                    <a href="?pagina={{ pagina + 1 }}&parte_numero={{ parte_numero or '' }}&fecha_parte={{ fecha_parte or '' }}&estado_id={{ estado_id or '' }}&responsable_id={{ responsable_id or '' }}">
+                        Siguiente
+                    </a>
+                {% endif %}
+
+            </div>
+            {% endif %}
+        
     </div>
 
 </body>

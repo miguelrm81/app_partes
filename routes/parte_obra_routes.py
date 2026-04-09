@@ -10,10 +10,14 @@ def index():
     fecha_parte = request.args.get('fecha_parte')
     estado_id = request.args.get('estado_id')
     responsable_id = request.args.get('responsable_id')
-    partes = obtener_partes(parte_numero, fecha_parte, estado_id, responsable_id)
+    pagina = request.args.get('pagina', 1, type=int)
+    reg_x_pagina = 15
+    total_partes = contar_partes(parte_numero, fecha_parte, estado_id, responsable_id)
+    total_paginas = (total_partes + reg_x_pagina - 1) // reg_x_pagina
+    partes = obtener_partes(parte_numero, fecha_parte, estado_id, responsable_id, pagina, reg_x_pagina)
     estados = get_estados()
     personal = get_personal_activo()
-    return render_template("index.html", partes = partes, estados=estados, parte_numero=parte_numero, fecha_parte=fecha_parte, estado_id=estado_id, responsable_id=responsable_id, personal=personal)
+    return render_template("index.html", partes = partes, estados=estados, parte_numero=parte_numero, fecha_parte=fecha_parte, estado_id=estado_id, responsable_id=responsable_id, personal=personal, pagina=pagina, total_paginas=total_paginas)
 
 #Ruta para el formulario de nuevo parte
 
