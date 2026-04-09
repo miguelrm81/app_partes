@@ -177,3 +177,11 @@ def borrar_parte(parte_id):
     conn.execute("DELETE FROM ParteObra WHERE id = ?", (parte_id,))
     conn.commit()
     conn.close()
+
+# Funcion para validar si existe un parte con el mismo numero para evitar duplicados
+
+def comprobar_num_parte(parte_numero):
+    conn = get_connection()
+    row = conn.execute("SELECT id FROM parteObra WHERE parte_numero = ?", (parte_numero,)).fetchone()
+    conn.close()
+    return row is not None

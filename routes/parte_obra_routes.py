@@ -32,6 +32,23 @@ def nuevo_parte():
 @parte_bp.route("/partes/nuevo", methods=["POST"])
 def guardar_parte():
     form = request.form
+
+    if comprobar_num_parte(form.get("parte_numero")):
+        tipos_terreno  = get_tipo_terreno()
+        secciones_tipo = get_seccion_tipo()
+        estados        = get_estados()
+        motivos_exceso = get_motivo_exceso()
+        personal       = get_personal_activo()
+        return render_template("nuevo.html",
+            error="Numero de parte repetido.",
+            tipos_terreno=tipos_terreno,
+            secciones_tipo=secciones_tipo,
+            estados=estados,
+            motivos_exceso=motivos_exceso,
+            personal=personal,
+            form=form
+        )
+    
     datos = {
             "parte_numero": form.get("parte_numero"),
             "fecha_parte": form.get("fecha_parte"),
