@@ -28,7 +28,7 @@ def get_motivo_exceso():
 
 def get_personal():
     conn = get_connection()
-    rows = conn.execute("SELECT id, nombre, activo FROM Personal ORDER BY nombre").fetchall()
+    rows = conn.execute("SELECT id, nombre, apellido1, apellido2, telefono, email, activo FROM Personal ORDER BY nombre").fetchall()
     conn.close()
     return rows
 
@@ -62,10 +62,10 @@ def insertar_motivo_exceso(descripcion):
     conn.commit()
     conn.close()
 
-def insertar_personal(nombre):      
+def insertar_personal(nombre, apellido1, apellido2, telefono, email):      
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO Personal (nombre, activo) VALUES (?, ?)", (nombre, 1))
+    cursor.execute("INSERT INTO Personal (nombre, apellido1, apellido2, telefono, email, activo) VALUES (?, ?, ?, ?, ?, ?)", (nombre, apellido1, apellido2, telefono, email, 1))
     conn.commit()
     conn.close()
 

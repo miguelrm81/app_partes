@@ -168,6 +168,9 @@
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Teléfono</th>
+                        <th>Email</th>
                         <th>Activo</th>
                         <th>Acciones</th>
                     </tr>
@@ -177,6 +180,9 @@
                         <tr>
                             <td>{{ p['id'] }}</td>
                             <td>{{ p['nombre'] }}</td>
+                            <td>{{ p['apellido1'] }} {{ p['apellido2'] }}</td>
+                            <td>{{ p['telefono'] }}</td>
+                            <td>{{ p['email'] }}</td>
                             <td>{{ 'Si' if p['activo'] == 1 else 'No' }}</td>
                             <td>
                                 <form method="POST" action="{{ url_for('admin.eliminar_maestro', maestro='personal', id=p['id']) }}" style="display:inline;" onsubmit="return confirm('¿Seguro que quieres borrar este responsable?')">
@@ -194,8 +200,30 @@
         </div>
         <div class="boton_admin">
             <form method="POST" action="{{ url_for('admin.insertar_maestro', maestro='personal') }}">
-                <input type="text" name="nombre" placeholder="Inserta Nombre del Responsable">
-                <button type="submit" class="btn-verde">Añadir</button>
+                <div>
+                    <label>Nombre</label>
+                    <input type="text" name="nombre" placeholder="Inserta Nombre del Responsable" required>
+                </div>
+                <div>
+                    <label>Primer Apellido</label>
+                    <input type="text" name="apellido1" placeholder="Inserta Primer Apellido" required> 
+                </div>
+                <div>
+                    <label>Segundo Apellido</label>
+                    <input type="text" name="apellido2" placeholder="Inserta Segundo Apellido" required>
+                </div>
+                <div>
+                    <label>Teléfono</label>
+                    <input type="text" name="telefono" placeholder="Ej: 666555444" pattern="[0-9]{9}" title="Introduce un número de teléfono válido de 9 dígitos" required>
+                </div>
+                <div>
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="Inserta Email" required>
+                </div>
+                <div>
+                    <label>&nbsp;</label>
+                    <button type="submit" class="btn-verde">Añadir</button>   
+                </div> 
             </form>
         </div>
     </div>

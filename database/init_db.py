@@ -13,6 +13,10 @@ cursor.execute("""
     CREATE TABLE IF NOT EXISTS Personal(
                id INTEGER PRIMARY KEY AUTOINCREMENT,
                nombre TEXT NOT NULL,
+               apellido1 TEXT NOT NULL,
+               apellido2 TEXT NOT NULL,
+               telefono TEXT NOT NULL,
+               email TEXT NOT NULL,
                activo INTEGER NOT NULL DEFAULT 1)
                """)
 

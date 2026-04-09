@@ -39,7 +39,11 @@ def insertar_maestro(maestro):
         insertar_motivo_exceso(descripcion)
     elif maestro == "personal":
         nombre = request.form.get("nombre")
-        insertar_personal(nombre)
+        apellido1 = request.form.get("apellido1")
+        apellido2 = request.form.get("apellido2")
+        telefono = request.form.get("telefono")
+        email = request.form.get("email")
+        insertar_personal(nombre, apellido1, apellido2, telefono, email)
     return redirect(url_for("admin.carga_admin"))
 
 @admin_bp.route("/admin/eliminar/<maestro>/<int:id>", methods=["POST"])
