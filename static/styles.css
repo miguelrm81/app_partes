@@ -39,6 +39,26 @@ nav .logo {
   
 }
 
+.contenedor-nuevo {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 0 16px;
+  align-items: center;
+  
+}
+
+.contenedor-nuevo h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #3C3C3B;
+  font-weight: bold;
+  font-size: 20px;
+  background-color: #B3B4B2;
+  height: 20px;
+  padding: 8px 0;
+  
+}
+
 .contenedor-admin {
   max-width: 1300px;
   margin: 30px auto;
@@ -246,7 +266,7 @@ textarea {
   background-color: white;
   color: #3C3C3B;
   border: 1px solid #B3B4B2;
-  padding: 9px 20px;
+  padding: 7px 20px;
   font-size: 14px;
   border-radius: 3px;
   cursor: pointer;
