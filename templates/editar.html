@@ -78,9 +78,7 @@
               <select name="responsable_id" required>
                 <option value="">— Selecciona —</option>
                 {% for p in personal %}
-                  <option value="{{ p['id'] }}"
-                    {{ 'selected' if p['id'] == parte['responsable_id'] }}>
-                    {{ p['nombre'] }} {{ p['apellido1'] }}
+                  <option value="{{ p['id'] }}" {{ 'selected' if p['id'] == parte['responsable_id'] }}> {{ p['nombre'] }} {{ p['apellido1'] }}
                   </option>
                 {% endfor %}
               </select>
@@ -90,10 +88,10 @@
               <select name="relevo_id">
                 <option value="">— Sin relevo —</option>
                 {% for p in personal %}
-                  <option value="{{ p['id'] }}"
-                    {{ 'selected' if p['id'] == parte['relevo_id'] }}>
-                    {{ p['nombre'] }} {{ p['apellido1'] }}
-                  </option>
+                  {% if p['id'] != parte['responsable_id'] %}
+                    <option value="{{ p['id'] }}"{{ 'selected' if p['id'] == parte['relevo_id'] }}> {{ p['nombre'] }} {{ p['apellido1'] }}
+                    </option>
+                  {% endif %}
                 {% endfor %}
               </select>
             </div>
@@ -102,13 +100,11 @@
           <div class="dos-columnas">
             <div>
               <label>Hora inicio relevo</label>
-              <input type="time" name="hora_inicio_relevo"
-                     value="{{ parte['hora_inicio_relevo'] or '' }}">
+              <input type="time" name="hora_inicio_relevo" value="{{ parte['hora_inicio_relevo'] or '' }}">       
             </div>
             <div>
               <label>Hora fin relevo</label>
-              <input type="time" name="hora_fin_relevo"
-                     value="{{ parte['hora_fin_relevo'] or '' }}">
+              <input type="time" name="hora_fin_relevo" value="{{ parte['hora_fin_relevo'] or '' }}">
             </div>
           </div>
 

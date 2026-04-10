@@ -27,9 +27,9 @@
           <div class="tres-columnas">
             <div>
                 <label>Número de parte *</label>
-                <input type="text" name="parte_numero" value="{{ form.parte_numero if form else '' }}" class="{{ 'campo-error' if error else '' }}" required>
-                {% if error %}
-                <p class="mensaje-error">{{ error }}</p>
+                <input type="text" name="parte_numero" value="{{ form.parte_numero if form else '' }}" class="{{ 'campo-error' if errores and 'parte_numero' in errores else '' }}" required>
+                {% if errores and 'parte_numero' in errores %}
+                <p class="mensaje-error">{{ errores['parte_numero'] }}</p>
                 {% endif %}
             </div>
             <div>
@@ -77,7 +77,7 @@
                     <div>
                         <label>Relevo</label>
                         <select name="relevo_id">
-                            <option value="">— Selecciona —</option>
+                            <option value="">— Sin relevo —</option>
                             {% for p in personal %}
                             <option value="{{ p['id'] }}" {{ 'selected' if form and form.relevo_id == p['id']|string else '' }}>{{ p['nombre'] }} {{ p['apellido1'] }}</option>
                             {% endfor %}
@@ -87,11 +87,17 @@
                     <div class="dos-columnas">
                         <div>
                             <label>Hora inicio relevo</label>
-                            <input type="time" name="hora_inicio_relevo" id="horaInicio" value="{{ form.hora_inicio_relevo if form else '' }}" {{ '' if form and form.relevo_id else 'disabled' }}>
+                            <input type="time" name="hora_inicio_relevo" id="horaInicio" value="{{ form.hora_inicio_relevo if form else '' }}" class="{{ 'campo-error' if errores and 'hora_inicio_relevo' in errores else '' }}" {{ '' if form and form.relevo_id else 'disabled' }}>
+                            {% if errores and 'hora_inicio_relevo' in errores %}
+                            <p class="mensaje-error">{{ errores['hora_inicio_relevo'] }}</p>
+                            {% endif %}
                         </div>
                         <div>
                             <label>Hora fin relevo</label>
-                            <input type="time" name="hora_fin_relevo" id="horaFin" value="{{ form.hora_fin_relevo if form else '' }}" {{ '' if form and form.relevo_id else 'disabled' }}>
+                            <input type="time" name="hora_fin_relevo" id="horaFin" value="{{ form.hora_fin_relevo if form else '' }}" class="{{ 'campo-error' if errores and 'hora_fin_relevo' in errores else '' }}" {{ '' if form and form.relevo_id else 'disabled' }}>
+                            {% if errores and 'hora_fin_relevo' in errores %}
+                            <p class="mensaje-error">{{ errores['hora_fin_relevo'] }}</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -165,17 +171,23 @@
                 <div class="dos-columnas">
                     <div>
                         <label>Motivo del exceso</label>
-                        <select name="motivo_exceso_id" id="motivoExceso" {% if not form or not form.exceso_justificado %}disabled{% endif %}>
+                        <select name="motivo_exceso_id" id="motivoExceso" class="{{ 'campo-error' if errores and 'motivo_exceso_id' in errores else '' }}" {% if not form or not form.exceso_justificado %}disabled{% endif %}>
                             <option value="">— Selecciona —</option>
                             {% for m in motivos_exceso %}
                             <option value="{{ m['id'] }}" {{ 'selected' if form and form.motivo_exceso_id == m['id']|string else '' }}>{{ m['descripcion'] }}</option>
                             {% endfor %}
                         </select>
+                        {% if errores and 'motivo_exceso_id' in errores %}
+                        <p class="mensaje-error">{{ errores['motivo_exceso_id'] }}</p>
+                        {% endif %}
                     </div>
                     <div>
                         <label>Justificación del exceso</label>
                         <input type="text" name="justificacion_exceso" id="justificacionExceso" value="{{ form.justificacion_exceso if form else '' }}"
-                            placeholder="Describe el motivo" {% if not form or not form.exceso_justificado %}disabled{% endif %}>
+                            class="{{ 'campo-error' if errores and 'justificacion_exceso' in errores else '' }}" placeholder="Describe el motivo" {% if not form or not form.exceso_justificado %}disabled{% endif %}>
+                        {% if errores and 'justificacion_exceso' in errores %}
+                        <p class="mensaje-error">{{ errores['justificacion_exceso'] }}</p>
+                        {% endif %}
                     </div>
                 </div>
 

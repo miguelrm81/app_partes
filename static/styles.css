@@ -177,6 +177,12 @@ input.campo-error {
     
 }
 
+select.campo-error {
+    background-color: #fdeaea;
+    border-color: red;
+    
+}
+
 textarea {
     width: 98%;
     padding: 7px 5px;

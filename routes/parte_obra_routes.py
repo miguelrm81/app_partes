@@ -36,15 +36,31 @@ def nuevo_parte():
 @parte_bp.route("/partes/nuevo", methods=["POST"])
 def guardar_parte():
     form = request.form
+    errores ={}
 
     if comprobar_num_parte(form.get("parte_numero")):
+        errores['parte_numero'] = "Numero de parte repetido."
+
+    if form.get("relevo_id") and not form.get("hora_inicio_relevo"):
+        errores['hora_inicio_relevo'] = "Campo obligatorio"
+
+    if form.get("relevo_id") and not form.get("hora_fin_relevo"):
+        errores['hora_fin_relevo'] = "Campo obligatorio"
+
+    if form.get("exceso_justificado") and not form.get("motivo_exceso_id"):
+        errores['motivo_exceso_id'] = "Seleccione motivo"
+    
+    if form.get("exceso_justificado") and not form.get("justificacion_exceso"):
+        errores['justificacion_exceso'] = "Justifique el exceso"
+
+    if errores:
         tipos_terreno  = get_tipo_terreno()
         secciones_tipo = get_seccion_tipo()
         estados        = get_estados()
         motivos_exceso = get_motivo_exceso()
         personal       = get_personal_activo()
         return render_template("nuevo.html",
-            error="Numero de parte repetido.",
+            errores=errores,
             tipos_terreno=tipos_terreno,
             secciones_tipo=secciones_tipo,
             estados=estados,
