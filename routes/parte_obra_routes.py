@@ -17,7 +17,8 @@ def index():
     partes = obtener_partes(parte_numero, fecha_parte, estado_id, responsable_id, pagina, reg_x_pagina)
     estados = get_estados()
     personal = get_personal_activo()
-    return render_template("index.html", partes = partes, estados=estados, parte_numero=parte_numero, fecha_parte=fecha_parte, estado_id=estado_id, responsable_id=responsable_id, personal=personal, pagina=pagina, total_paginas=total_paginas)
+    return render_template("index.html", partes = partes, estados=estados, parte_numero=parte_numero, fecha_parte=fecha_parte, 
+                           estado_id=estado_id, responsable_id=responsable_id, personal=personal, pagina=pagina, total_paginas=total_paginas)
 
 #Ruta para el formulario de nuevo parte
 
@@ -107,9 +108,8 @@ def editar_parte(parte_id):
     estados = get_estados()
     motivos_exceso = get_motivo_exceso()
     personal = get_personal_activo()
-    return render_template("editar.html", parte=parte, tipos_terreno = tipos_terreno, 
-                           secciones_tipo = secciones_tipo, estados = estados, 
-                           motivos_exceso = motivos_exceso, personal = personal)
+    return render_template("editar.html", parte=parte, tipos_terreno = tipos_terreno, secciones_tipo = secciones_tipo,
+                           estados = estados, motivos_exceso = motivos_exceso, personal = personal)
 
 # Ruta para guardar los cambios de un parte editado
 
