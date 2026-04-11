@@ -169,7 +169,7 @@ def actualizar_parte(parte_id, datos):
                         hubo_paradas = :hubo_paradas,
                         observaciones = :observaciones,
                         estado_id = :estado_id,
-                        fecha_edicion_utc = datetime('now')
+                        fecha_edicion_utc = datetime('now', 'localtime')
                     WHERE id = :id""", 
                     {**datos, "id": parte_id,})
     conn.commit()
