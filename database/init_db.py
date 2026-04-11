@@ -55,6 +55,7 @@ cursor.execute("""
                parte_numero TEXT NOT NULL UNIQUE,
                fecha_parte DATE NOT NULL,
                fecha_registro_utc DATETIME NOT NULL DEFAULT (datetime('now')),
+               fecha_edicion_utc DATETIME,
                canal_codigo TEXT,
                canal_nombre TEXT,
                responsable_id INTEGER,
