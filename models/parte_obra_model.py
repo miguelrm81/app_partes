@@ -217,3 +217,4 @@ def contar_partes(parte_numero=None, fecha_parte=None, estado_id=None, responsab
     total = conn.execute(query, params).fetchone()[0]
     conn.close()
     return total
+

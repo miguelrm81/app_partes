@@ -5,19 +5,28 @@ import os
 
 admin_bp = Blueprint('admin', __name__)
 
+def limpiar_datos(texto):
+    if not texto:
+        return texto
+    return texto.strip().title()
+
+def limpiar_personal(datos):
+    datos['nombre']    = datos['nombre'].strip().title()
+    datos['apellido1'] = datos['apellido1'].strip().title()
+    datos['apellido2'] = datos['apellido2'].strip().title()
+    datos['email']     = datos['email'].strip().lower()
+    datos['telefono']  = datos['telefono'].strip()
+    return datos
+
 @admin_bp.route("/admin", methods=["GET"])
 def carga_admin():
 
     if not session.get('autenticado'):
         return redirect(url_for("admin.login_admin"))
     
-    tipos_terreno = get_tipo_terreno()
-    secciones_tipo = get_seccion_tipo()
-    estados = get_estados()
-    motivos_exceso = get_motivo_exceso()
-    personal = get_personal()
-    return render_template("admin.html", tipos_terreno=tipos_terreno, secciones_tipo=secciones_tipo, 
-                           estados=estados, motivos_exceso=motivos_exceso, personal=personal)
+    maestras = cargar_maestras_admin()
+    return render_template("admin.html", **maestras)
+                           
 
 @admin_bp.route("/admin/insertar/<maestro>", methods=["POST"])
 def insertar_maestro(maestro):
@@ -25,26 +34,58 @@ def insertar_maestro(maestro):
     if not session.get('autenticado'):
         return redirect(url_for("admin.login_admin"))
     
-    if maestro == "tipo_terreno":
-        descripcion = request.form.get("descripcion")
-        insertar_tipo_terreno(descripcion)
-    elif maestro == "seccion_tipo":
-        descripcion = request.form.get("descripcion")
-        insertar_seccion_tipo(descripcion)
-    elif maestro == "estado_parte":
-        descripcion = request.form.get("descripcion")
-        insertar_estado_parte(descripcion)
-    elif maestro == "motivo_exceso":
-        descripcion = request.form.get("descripcion")
-        insertar_motivo_exceso(descripcion)
-    elif maestro == "personal":
-        nombre = request.form.get("nombre")
-        apellido1 = request.form.get("apellido1")
-        apellido2 = request.form.get("apellido2")
-        telefono = request.form.get("telefono")
-        email = request.form.get("email")
-        insertar_personal(nombre, apellido1, apellido2, telefono, email)
+    errores = {}
+    
+    if maestro == "personal":
+        datos = {
+            "nombre": request.form.get("nombre"),
+            "apellido1": request.form.get("apellido1"),
+            "apellido2": request.form.get("apellido2"),
+            "telefono": request.form.get("telefono"),
+            "email": request.form.get("email")
+        }
+        datos = limpiar_personal(datos)
+
+        if not all(datos.values()):
+            errores['todos'] = "Todos los campos son obligatorios."   
+        elif not datos['telefono'].isdigit() or len(datos['telefono']) != 9:
+            errores['telefono'] = "El teléfono tiene que tener 9 digitos" 
+        if errores:
+            maestras = cargar_maestras_admin()
+            return render_template("admin.html", errores=errores, **maestras)
+        
+        if validar_personal(datos['nombre'], datos['apellido1'], datos['apellido2']):
+            errores['personal'] = "Ya existe una persona con ese nombre y apellidos"
+        elif validar_email(datos['email']):
+            errores['email'] = "Ya existe un personal con ese email"
+        elif validar_telefono(datos['telefono']):
+            errores['telefono'] = "Ya existe un personal con ese teléfono"
+        
+        if not errores:
+            insertar_personal(datos['nombre'], datos['apellido1'], datos['apellido2'], datos['telefono'], datos['email'])
+    
+    else:
+        descripcion = limpiar_datos(request.form.get("descripcion"))
+
+        if validar_descripcion(maestro, descripcion):
+            errores[maestro] = "Ya existe ese valor"
+        else:
+            funciones = {
+                "tipo_terreno": insertar_tipo_terreno,
+                "seccion_tipo": insertar_seccion_tipo,
+                "estado_parte": insertar_estado_parte,
+                "motivo_exceso": insertar_motivo_exceso
+            }
+            funcion_error = funciones.get(maestro)
+            if funcion_error:
+                funcion_error(descripcion)
+
+    if errores:
+        maestras = cargar_maestras_admin()
+        return render_template("admin.html", errores=errores, **maestras)
+    
     return redirect(url_for("admin.carga_admin"))
+  
 
 @admin_bp.route("/admin/eliminar/<maestro>/<int:id>", methods=["POST"])
 def eliminar_maestro(maestro,id):

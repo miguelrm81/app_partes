@@ -46,9 +46,12 @@
             </div>
                 <div class="boton_admin">
                     <form method="POST" action="{{ url_for('admin.insertar_maestro', maestro='tipo_terreno') }}">
-                        <input type="text" name="descripcion" placeholder="Inserta Descripcion Terreno">
+                        <input type="text" name="descripcion" placeholder="Inserta Descripcion Terreno" class="{{ 'campo-error' if errores and 'tipo_terreno' in errores else '' }}">
                         <button type="submit" class="btn-verde">Añadir</button>
                     </form>
+                    {% if errores and 'tipo_terreno' in errores %}
+                        <p class="mensaje-error">{{ errores['tipo_terreno'] }}</p>
+                    {% endif %}
                 </div>
         </div>
         <div>    
@@ -70,7 +73,7 @@
                                 <td>{{ s['descripcion'] }}</td>
                                 <td>
                                     <form method="POST" action="{{ url_for('admin.eliminar_maestro', maestro='seccion_tipo', id=s['id']) }}" style="display:inline;" onsubmit="return confirm('¿Seguro que quieres borrar este tipo de sección?')">
-                                            <button type="submit" class="btn-tabla-borrar">Borrar</button>
+                                        <button type="submit" class="btn-tabla-borrar">Borrar</button>
                                     </form>
                                 </td>
                             </tr>
@@ -80,9 +83,12 @@
             </div>
                 <div class="boton_admin">
                     <form method="POST" action="{{ url_for('admin.insertar_maestro', maestro='seccion_tipo') }}">
-                        <input type="text" name="descripcion" placeholder="Inserta Descripcion Sección">
+                        <input type="text" name="descripcion" placeholder="Inserta Descripcion Sección" class="{{ 'campo-error' if errores and 'seccion_tipo' in errores else '' }}">
                         <button type="submit" class="btn-verde">Añadir</button>
                     </form>
+                    {% if errores and 'seccion_tipo' in errores %}
+                        <p class="mensaje-error">{{ errores['seccion_tipo'] }}</p>
+                    {% endif %}
                 </div>
             
         </div>       
@@ -116,9 +122,12 @@
 
             <div class="boton_admin">
                 <form method="POST" action="{{ url_for('admin.insertar_maestro', maestro='estado_parte') }}">
-                    <input type="text" name="descripcion" placeholder="Inserta Descripcion Estado">
+                    <input type="text" name="descripcion" placeholder="Inserta Descripcion Estado" class="{{ 'campo-error' if errores and 'estado_parte' in errores else '' }}">
                     <button type="submit" class="btn-verde">Añadir</button>
                 </form>
+                {% if errores and 'estado_parte' in errores %}
+                    <p class="mensaje-error">{{ errores['estado_parte'] }}</p>
+                {% endif %}
             </div>
         </div>
     
@@ -152,9 +161,12 @@
                 </div>
                 <div class="boton_admin">
                     <form method="POST" action="{{ url_for('admin.insertar_maestro', maestro='motivo_exceso') }}">
-                        <input type="text" name="descripcion" placeholder="Inserta Descripcion Motivo Exceso">
+                        <input type="text" name="descripcion" placeholder="Inserta Descripcion Motivo Exceso" class="{{ 'campo-error' if errores and 'motivo_exceso' in errores else '' }}">
                         <button type="submit" class="btn-verde">Añadir</button>
                     </form>
+                    {% if errores and 'motivo_exceso' in errores %}
+                        <p class="mensaje-error">{{ errores['motivo_exceso'] }}</p>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -202,29 +214,36 @@
             <form method="POST" action="{{ url_for('admin.insertar_maestro', maestro='personal') }}">
                 <div>
                     <label>Nombre</label>
-                    <input type="text" name="nombre" placeholder="Inserta Nombre del Responsable" required>
+                    <input type="text" name="nombre" placeholder="Inserta Nombre del Responsable" class="{{ 'campo-error' if errores and 'personal' in errores else '' }}" required>
                 </div>
+                    
                 <div>
                     <label>Primer Apellido</label>
-                    <input type="text" name="apellido1" placeholder="Inserta Primer Apellido" required> 
+                    <input type="text" name="apellido1" placeholder="Inserta Primer Apellido" class="{{ 'campo-error' if errores and 'personal' in errores else '' }}" required> 
                 </div>
                 <div>
                     <label>Segundo Apellido</label>
-                    <input type="text" name="apellido2" placeholder="Inserta Segundo Apellido" required>
+                    <input type="text" name="apellido2" placeholder="Inserta Segundo Apellido" class="{{ 'campo-error' if errores and 'personal' in errores else '' }}" required>
                 </div>
                 <div>
                     <label>Teléfono</label>
-                    <input type="text" name="telefono" placeholder="Ej: 666555444" pattern="[0-9]{9}" title="Introduce un número de teléfono válido de 9 dígitos" required>
+                    <input type="text" name="telefono" placeholder="Ej: 666555444" pattern="[0-9]{9}" title="Introduce un número de teléfono válido de 9 dígitos" class="{{ 'campo-error' if errores and 'telefono' in errores else '' }}"required>
+                    {% if errores and 'telefono' in errores %}
+                        <p class="mensaje-error">{{ errores['telefono'] }}</p>
+                    {% endif %}
                 </div>
                 <div>
                     <label>Email</label>
-                    <input type="email" name="email" placeholder="Inserta Email" required>
+                    <input type="email" name="email" placeholder="Inserta Email" class="{{ 'campo-error' if errores and 'email' in errores else '' }}" required>
                 </div>
                 <div>
                     <label>&nbsp;</label>
                     <button type="submit" class="btn-verde">Añadir</button>   
                 </div> 
             </form>
+            {% if errores and 'personal' in errores %}
+                <p class="mensaje-error2">{{ errores['personal'] }}</p>
+            {% endif %}
         </div>
     </div>
     

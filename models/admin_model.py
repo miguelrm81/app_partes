@@ -69,6 +69,16 @@ def insertar_personal(nombre, apellido1, apellido2, telefono, email):
     conn.commit()
     conn.close()
 
+# funcion para cargar los datos de las tablas maestras en los formularios
+def cargar_maestras_admin():
+    return {
+        "tipos_terreno":  get_tipo_terreno(),
+        "secciones_tipo": get_seccion_tipo(),
+        "estados":        get_estados(),
+        "motivos_exceso": get_motivo_exceso(),
+        "personal":       get_personal(),
+    }
+
 # Funcion para activar/desactivar personas
 
 def activar_personal(id, activo):
@@ -98,3 +108,39 @@ def obtener_personal_por_id(id):
     persona = conn.execute("SELECT * FROM Personal WHERE id = ?", (id,)).fetchone()
     conn.close()
     return persona
+
+def validar_descripcion(tabla, descripcion):
+    tablas = {
+        "tipo_terreno":  "TipoTerreno",
+        "seccion_tipo":  "SeccionTipo",
+        "estado_parte":  "EstadoParte",
+        "motivo_exceso": "MotivoExcesoHoras",
+        }
+    tabla_nombre = tablas.get(tabla)
+    
+    if not tabla_nombre:
+        return False
+    
+    conn = get_connection()
+    row = conn.execute(f"SELECT id FROM {tabla_nombre} WHERE LOWER(descripcion) = LOWER(?)", (descripcion,)).fetchone()
+    conn.close()
+    return row is not None
+
+def validar_email(email):
+    conn = get_connection()
+    row = conn.execute("SELECT id FROM Personal WHERE LOWER(email) = LOWER(?)", (email,)).fetchone()
+    conn.close()
+    return row is not None
+
+def validar_telefono(telefono):
+    conn = get_connection()
+    row = conn.execute("SELECT id FROM Personal WHERE telefono = ?", (telefono,)).fetchone()
+    conn.close()
+    return row is not None
+
+def validar_personal(nombre, apellido1, apellido2):
+    conn = get_connection()
+    row = conn.execute("SELECT id FROM Personal WHERE LOWER(nombre) = LOWER(?) AND LOWER(apellido1) = LOWER(?) AND LOWER(apellido2) = LOWER(?)", 
+                       (nombre, apellido1, apellido2)).fetchone()
+    conn.close()
+    return row is not None

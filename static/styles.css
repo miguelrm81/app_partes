@@ -534,6 +534,12 @@ tr:hover td {
   text-align: start;
 }
 
+.mensaje-error2 {
+  color: red;
+  font-size: 14px;
+  text-align: center;
+}
+
 .contenedor-nuevo p {
   margin-top: 0;
   margin-bottom: 2px;
