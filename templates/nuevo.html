@@ -72,18 +72,23 @@
                             {% for p in personal %}
                             <option value="{{ p['id'] }}" {{ 'selected' if form and form.responsable_id == p['id']|string else '' }}>{{ p['nombre'] }} {{ p['apellido1'] }}</option>
                             {% endfor %}
-                        </select>    
+                        </select>   
                     </div>
                     <div>
                         <label>Relevo</label>
-                        <select name="relevo_id">
+                        <select name="relevo_id" class="{{ 'campo-error' if errores and 'relevo_id' in errores else '' }}">
                             <option value="">— Sin relevo —</option>
                             {% for p in personal %}
                             <option value="{{ p['id'] }}" {{ 'selected' if form and form.relevo_id == p['id']|string else '' }}>{{ p['nombre'] }} {{ p['apellido1'] }}</option>
                             {% endfor %}
                         </select>    
+                        {% if errores and 'relevo_id' in errores %}
+                        <p class="mensaje-error">{{ errores['relevo_id'] }}</p>
+                        {% endif %}
                     </div>
-
+                    
+                    <div></div>
+                        
                     <div class="dos-columnas">
                         <div>
                             <label>Hora inicio relevo</label>
@@ -123,11 +128,15 @@
                 <div class="dos-columnas">
                     <div>
                         <label>PK Fin — km</label>
-                        <input type="number" name="pk_fin_km" placeholder="0" min="0" value="{{ form.pk_fin_km if form else '' }}">
+                        <input type="number" name="pk_fin_km" placeholder="0" min="0" value="{{ form.pk_fin_km if form else '' }}" class="{{ 'campo-error' if errores and 'pk_fin_km' in errores else '' }}">
+                        {% if errores and 'pk_fin_km' in errores %}
+                        <p class="mensaje-error">{{ errores['pk_fin_km'] }}</p>
+                        {% endif %}
                     </div>
+                    
                     <div>
                         <label>PK Fin — m</label>
-                        <input type="number" name="pk_fin_m" placeholder="0" min="0" max="999" value="{{ form.pk_fin_m if form else '' }}">
+                        <input type="number" name="pk_fin_m" placeholder="0" min="0" max="999" value="{{ form.pk_fin_m if form else '' }}" class="{{ 'campo-error' if errores and 'pk_fin_km' in errores else '' }}">
                     </div>
                 </div>
 

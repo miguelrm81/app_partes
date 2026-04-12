@@ -171,7 +171,8 @@ select
   margin-bottom: 8px;
 }
 
-input.campo-error {
+input.campo-error,
+input[type="number"].campo-error {
     background-color: #fdeaea;
     border-color: red;
     

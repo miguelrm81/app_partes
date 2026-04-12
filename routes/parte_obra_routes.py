@@ -3,6 +3,61 @@ from models.parte_obra_model import *
 
 parte_bp = Blueprint('partes', __name__)
 
+# Funcion de validacion de partes para evitar errores
+def validar_parte(form):
+    errores = {}
+
+    if form.get("relevo_id") and not form.get("hora_inicio_relevo"):
+        errores['hora_inicio_relevo'] = "Campo obligatorio"
+
+    if form.get("relevo_id") and not form.get("hora_fin_relevo"):
+        errores['hora_fin_relevo'] = "Campo obligatorio"
+
+    if form.get("exceso_justificado") and not form.get("motivo_exceso_id"):
+        errores['motivo_exceso_id'] = "Seleccione motivo"
+    
+    if form.get("exceso_justificado") and not form.get("justificacion_exceso"):
+        errores['justificacion_exceso'] = "Justifique el exceso"
+
+    if form.get("relevo_id") and form.get("responsable_id") == form.get("relevo_id"):
+        errores['relevo_id'] = "El relevo y responsable no pueden ser iguales."
+
+    pk_inicio_km = form.get("pk_inicio_km")
+    pk_inicio_m = form.get("pk_inicio_m")
+    pk_fin_km = form.get("pk_fin_km")
+    pk_fin_m = form.get("pk_fin_m")
+
+    if pk_inicio_km and pk_fin_km:
+        inicio= int(pk_inicio_km) * 1000 + int(pk_inicio_m or 0)
+        fin = int(pk_fin_km) * 1000 + int(pk_fin_m or 0)
+        if inicio >= fin:
+            errores['pk_fin_km'] = "El PK final debe ser mayor que el PK inicial"
+    
+    hora_inicio = form.get("hora_inicio_relevo")
+    hora_fin = form.get("hora_fin_relevo")
+    if hora_inicio and hora_fin:
+        if hora_inicio >= hora_fin:
+            errores['hora_fin_relevo'] = "La hora de fin debe ser mayor que la inicial"
+    
+    return errores
+
+# Funcion para limpiar los datos de espacios en blanco al principio y al final del texto
+def limpiar_datos(datos):
+    for clave, valor in datos.items():
+        if isinstance(valor, str):
+            datos[clave] = valor.strip()
+    return datos
+
+# funcion para cargar los datos de las tablas maestras en los formularios
+def cargar_maestras():
+    return {
+        "tipos_terreno":  get_tipo_terreno(),
+        "secciones_tipo": get_seccion_tipo(),
+        "estados":        get_estados(),
+        "motivos_exceso": get_motivo_exceso(),
+        "personal":       get_personal_activo(),
+    }
+
 # Ruta para listar los partes
 @parte_bp.route('/')
 def index():
@@ -24,51 +79,24 @@ def index():
 
 @parte_bp.route("/partes/nuevo", methods=["GET"])
 def nuevo_parte():
-    tipos_terreno = get_tipo_terreno()
-    secciones_tipo = get_seccion_tipo()
-    estados = get_estados()
-    motivos_exceso = get_motivo_exceso()
-    personal = get_personal_activo()
-    return render_template("nuevo.html", tipos_terreno=tipos_terreno, secciones_tipo=secciones_tipo, 
-                           estados=estados, motivos_exceso=motivos_exceso, personal=personal)
+    maestras = cargar_maestras()
+    return render_template("nuevo.html", **maestras)
+   
 
 # Ruta para guardar un nuevo parte
 
 @parte_bp.route("/partes/nuevo", methods=["POST"])
 def guardar_parte():
     form = request.form
-    errores ={}
+    errores = validar_parte(form)
 
     if comprobar_num_parte(form.get("parte_numero")):
         errores['parte_numero'] = "Numero de parte repetido."
 
-    if form.get("relevo_id") and not form.get("hora_inicio_relevo"):
-        errores['hora_inicio_relevo'] = "Campo obligatorio"
-
-    if form.get("relevo_id") and not form.get("hora_fin_relevo"):
-        errores['hora_fin_relevo'] = "Campo obligatorio"
-
-    if form.get("exceso_justificado") and not form.get("motivo_exceso_id"):
-        errores['motivo_exceso_id'] = "Seleccione motivo"
-    
-    if form.get("exceso_justificado") and not form.get("justificacion_exceso"):
-        errores['justificacion_exceso'] = "Justifique el exceso"
-
     if errores:
-        tipos_terreno  = get_tipo_terreno()
-        secciones_tipo = get_seccion_tipo()
-        estados        = get_estados()
-        motivos_exceso = get_motivo_exceso()
-        personal       = get_personal_activo()
-        return render_template("nuevo.html",
-            errores=errores,
-            tipos_terreno=tipos_terreno,
-            secciones_tipo=secciones_tipo,
-            estados=estados,
-            motivos_exceso=motivos_exceso,
-            personal=personal,
-            form=form
-        )
+        maestras = cargar_maestras()
+        return render_template("nuevo.html", errores=errores, form=form, **maestras)
+       
     
     datos = {
             "parte_numero": form.get("parte_numero"),
@@ -94,6 +122,7 @@ def guardar_parte():
             "observaciones": form.get("observaciones") or None,
             "estado_id": form.get("estado_id"),
         }
+    datos = limpiar_datos(datos)
     insertar_parte(datos)
     return redirect(url_for("partes.index"))
 
@@ -103,19 +132,21 @@ def editar_parte(parte_id):
     parte = obtener_parte_por_id(parte_id)
     if not parte:
         return "Parte no encontrado", 404
-    tipos_terreno = get_tipo_terreno()
-    secciones_tipo = get_seccion_tipo()
-    estados = get_estados()
-    motivos_exceso = get_motivo_exceso()
-    personal = get_personal_activo()
-    return render_template("editar.html", parte=parte, tipos_terreno = tipos_terreno, secciones_tipo = secciones_tipo,
-                           estados = estados, motivos_exceso = motivos_exceso, personal = personal)
+    maestras = cargar_maestras()
+    return render_template("editar.html", parte=parte, **maestras)
 
 # Ruta para guardar los cambios de un parte editado
 
 @parte_bp.route("/partes/editar/<int:parte_id>", methods=["POST"])
 def actualizar_parte_route(parte_id):
     form = request.form
+    errores = validar_parte(form)
+
+    if errores:
+        parte = obtener_parte_por_id(parte_id)
+        maestras = cargar_maestras()
+        return render_template("editar.html", parte=parte, errores=errores, form=form, **maestras)
+    
     datos = {
         "parte_numero": form.get("parte_numero"),
         "fecha_parte": form.get("fecha_parte"),
@@ -140,6 +171,7 @@ def actualizar_parte_route(parte_id):
         "observaciones": form.get("observaciones") or None,
         "estado_id": form.get("estado_id"),
     }
+    datos = limpiar_datos(datos)
     actualizar_parte(parte_id, datos)
     return redirect(url_for("partes.index"))
 
@@ -149,3 +181,4 @@ def actualizar_parte_route(parte_id):
 def borrar_parte_route(parte_id):
     borrar_parte(parte_id)
     return redirect(url_for("partes.index"))
+
