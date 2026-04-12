@@ -42,10 +42,7 @@
               <select name="estado_id" required>
                 <option value="">— Selecciona —</option>
                 {% for e in estados %}
-                  <option value="{{ e['id'] }}"
-                    {{ 'selected' if e['id'] == parte['estado_id'] }}>
-                    {{ e['descripcion'] }}
-                  </option>
+                  <option value="{{ e['id'] }}" {{ 'selected' if e['id'] == parte['estado_id'] }}> {{ e['descripcion'] }} </option>  
                 {% endfor %}
               </select>
             </div>
@@ -54,13 +51,11 @@
           <div class="dos-columnas">
             <div>
               <label>Código de canal</label>
-              <input type="text" name="canal_codigo"
-                     value="{{ parte['canal_codigo'] or '' }}">
+              <input type="text" name="canal_codigo" value="{{ parte['canal_codigo'] or '' }}">     
             </div>
             <div>
               <label>Nombre de canal</label>
-              <input type="text" name="canal_nombre"
-                     value="{{ parte['canal_nombre'] or '' }}">
+              <input type="text" name="canal_nombre"  value="{{ parte['canal_nombre'] or '' }}">      
             </div>
           </div>
 
@@ -78,14 +73,13 @@
               <select name="responsable_id" required>
                 <option value="">— Selecciona —</option>
                 {% for p in personal %}
-                  <option value="{{ p['id'] }}" {{ 'selected' if p['id'] == parte['responsable_id'] }}> {{ p['nombre'] }} {{ p['apellido1'] }}
-                  </option>
+                  <option value="{{ p['id'] }}" {{ 'selected' if p['id'] == parte['responsable_id'] }}> {{ p['nombre'] }} {{ p['apellido1'] }} </option>
                 {% endfor %}
               </select>
             </div>
             <div>
               <label>Relevo</label>
-              <select name="relevo_id">
+              <select name="relevo_id" class="{{ 'campo-error' if errores and 'relevo_id' in errores else '' }}">
                 <option value="">— Sin relevo —</option>
                 {% for p in personal %}
                   {% if p['id'] != parte['responsable_id'] %}
@@ -94,17 +88,27 @@
                   {% endif %}
                 {% endfor %}
               </select>
+              {% if errores and 'relevo_id' in errores %}
+                  <p class="mensaje-error">{{ errores['relevo_id'] }}</p>
+              {% endif %}
             </div>
           </div>
 
           <div class="dos-columnas">
             <div>
               <label>Hora inicio relevo</label>
-              <input type="time" name="hora_inicio_relevo" value="{{ parte['hora_inicio_relevo'] or '' }}">       
+              <input type="time" name="hora_inicio_relevo" value="{{ parte['hora_inicio_relevo'] or '' }}" class="{{ 'campo-error' if errores and 'hora_inicio_relevo' in errores else '' }}">    
+              {% if errores and 'hora_inicio_relevo' in errores %}
+                  <p class="mensaje-error">{{ errores['hora_inicio_relevo'] }}</p>
+              {% endif %}   
             </div>
+
             <div>
               <label>Hora fin relevo</label>
-              <input type="time" name="hora_fin_relevo" value="{{ parte['hora_fin_relevo'] or '' }}">
+              <input type="time" name="hora_fin_relevo" value="{{ parte['hora_fin_relevo'] or '' }}" class="{{ 'campo-error' if errores and 'hora_fin_relevo' in errores else '' }}">    
+              {% if errores and 'hora_fin_relevo' in errores %}
+                  <p class="mensaje-error">{{ errores['hora_fin_relevo'] }}</p>
+              {% endif %}
             </div>
           </div>
 
@@ -119,26 +123,27 @@
           <div class="dos-columnas">
             <div>
               <label>PK Inicio — km</label>
-              <input type="number" name="pk_inicio_km" min="0"
-                     value="{{ parte['pk_inicio_km'] or '' }}">
+              <input type="number" name="pk_inicio_km" min="0" value="{{ parte['pk_inicio_km'] or '' }}">
+                     
             </div>
             <div>
               <label>PK Inicio — m</label>
-              <input type="number" name="pk_inicio_m" min="0" max="999"
-                     value="{{ parte['pk_inicio_m'] or '' }}">
+              <input type="number" name="pk_inicio_m" min="0" max="999" value="{{ parte['pk_inicio_m'] or '' }}">
             </div>
           </div>
 
           <div class="dos-columnas">
             <div>
               <label>PK Fin — km</label>
-              <input type="number" name="pk_fin_km" min="0"
-                     value="{{ parte['pk_fin_km'] or '' }}">
+              <input type="number" name="pk_fin_km" min="0"  value="{{ parte['pk_fin_km'] or '' }}" class="{{ 'campo-error' if errores and 'pk_fin_km' in errores else '' }}">
+              {% if errores and 'pk_fin_km' in errores %}
+                  <p class="mensaje-error">{{ errores['pk_fin_km'] }}</p>
+              {% endif %}
+                    
             </div>
             <div>
               <label>PK Fin — m</label>
-              <input type="number" name="pk_fin_m" min="0" max="999"
-                     value="{{ parte['pk_fin_m'] or '' }}">
+              <input type="number" name="pk_fin_m" min="0" max="999" value="{{ parte['pk_fin_m'] or '' }}" class="{{ 'campo-error' if errores and 'pk_fin_km' in errores else '' }}">
             </div>
           </div>
 
@@ -148,9 +153,7 @@
               <select name="tipo_terreno_id">
                 <option value="">— Selecciona —</option>
                 {% for t in tipos_terreno %}
-                  <option value="{{ t['id'] }}"
-                    {{ 'selected' if t['id'] == parte['tipo_terreno_id'] }}>
-                    {{ t['descripcion'] }}
+                  <option value="{{ t['id'] }}"{{ 'selected' if t['id'] == parte['tipo_terreno_id'] }}>{{ t['descripcion'] }}
                   </option>
                 {% endfor %}
               </select>
@@ -160,10 +163,7 @@
               <select name="seccion_tipo_id">
                 <option value="">— Selecciona —</option>
                 {% for s in secciones_tipo %}
-                  <option value="{{ s['id'] }}"
-                    {{ 'selected' if s['id'] == parte['seccion_tipo_id'] }}>
-                    {{ s['descripcion'] }}
-                  </option>
+                  <option value="{{ s['id'] }}" {{ 'selected' if s['id'] == parte['seccion_tipo_id'] }}>{{ s['descripcion'] }}</option>
                 {% endfor %}
               </select>
             </div>
@@ -178,20 +178,18 @@
         <div class="seccion-cuerpo">
 
           <label>Total actividades (min)</label>
-          <input type="number" name="total_actividades_min" min="0"
-                 value="{{ parte['total_actividades_min'] or '' }}">
+          <input type="number" name="total_actividades_min" min="0" value="{{ parte['total_actividades_min'] or '' }}">
+                 
 
           <div class="campo-check">
-            <input type="checkbox" id="chkExceso" name="exceso_justificado" value="1"
-                   {{ 'checked' if parte['exceso_justificado'] == 1 }}>
+            <input type="checkbox" id="chkExceso" name="exceso_justificado" value="1" {{ 'checked' if parte['exceso_justificado'] == 1 }}>      
             <label for="chkExceso">¿Hay exceso de horas justificado?</label>
           </div>
 
           <div class="dos-columnas">
             <div>
               <label>Motivo del exceso</label>
-              <select name="motivo_exceso_id" id="motivoExceso"
-                      {{ '' if parte['exceso_justificado'] == 1 else 'disabled' }}>
+              <select name="motivo_exceso_id" id="motivoExceso" {{ '' if parte['exceso_justificado'] == 1 else 'disabled' }} class="{{ 'campo-error' if errores and 'motivo_exceso_id' in errores else '' }}">      
                 <option value="">— Selecciona —</option>
                 {% for m in motivos_exceso %}
                   <option value="{{ m['id'] }}"
@@ -200,12 +198,18 @@
                   </option>
                 {% endfor %}
               </select>
+              {% if errores and 'motivo_exceso_id' in errores %}
+                  <p class="mensaje-error">{{ errores['motivo_exceso_id'] }}</p>
+              {% endif %}
             </div>
+            
             <div>
               <label>Justificación del exceso</label>
-              <input type="text" name="justificacion_exceso" id="justificacionExceso"
-                     value="{{ parte['justificacion_exceso'] or '' }}"
-                     {{ '' if parte['exceso_justificado'] == 1 else 'disabled' }}>
+              <input type="text" name="justificacion_exceso" id="justificacionExceso" value="{{ parte['justificacion_exceso'] or '' }}"
+                     class="{{ 'campo-error' if errores and 'justificacion_exceso' in errores else '' }}" {{ '' if parte['exceso_justificado'] == 1 else 'disabled' }}>
+              {% if errores and 'justificacion_exceso' in errores %}
+                  <p class="mensaje-error">{{ errores['justificacion_exceso'] }}</p>
+              {% endif %}
             </div>
           </div>
 
