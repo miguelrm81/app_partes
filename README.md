@@ -1,9 +1,11 @@
 # APP_PARTESDEOBRA
 Aplicación web en Flask para gestionar partes de obra (crear, editar, borrar, listar y administrar datos maestros).
 
-Requisitos
+## Requisitos
+```text
 Python 3.10 o superior
 pip
+```
 
 ## Instalación rápida (Windows PowerShell)
 ```bash
