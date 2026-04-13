@@ -9,15 +9,32 @@ body {
 } 
 
 /* NAVEGACIÓN */
+
 nav {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
   background-color: #3C3C3B;
   padding: 12px 20px;
+}
+
+.nav-left,
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.nav-left a {
+  margin-right: 16px;
+}
+
+.nav-right span {
+  margin-right: 16px;
 }
 
 nav a {
   color: #B3B4B2;
   text-decoration: none;
-  margin-right: 16px;
   font-size: 14px;
 }
 
@@ -29,6 +46,10 @@ nav .logo {
   color: #2DB4AD;
   font-weight: bold;
   font-size: 15px;
+}
+
+nav span {
+  color: #2DB4AD;
 }
 
 /* CONTENEDOR PRINCIPAL */
@@ -422,7 +443,7 @@ tr:hover td {
   gap: 8px;
   margin-top: 10px;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
 }
 
 .boton_admin form {

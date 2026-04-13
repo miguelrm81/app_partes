@@ -144,3 +144,9 @@ def validar_personal(nombre, apellido1, apellido2):
                        (nombre, apellido1, apellido2)).fetchone()
     conn.close()
     return row is not None
+
+def obtener_usuario(usuario):
+    conn= get_connection()
+    row = conn.execute("SELECT * FROM Usuario WHERE usuario = ?", (usuario,)).fetchone()
+    conn.close()
+    return row

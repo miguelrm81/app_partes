@@ -39,6 +39,7 @@ if cursor.execute("SELECT COUNT(*) FROM EstadoParte").fetchone()[0] == 0:
         ("En curso",),
     ])
 
+
 conn.commit()
 conn.close()
 print("Datos de ejemplo insertados correctamente.")

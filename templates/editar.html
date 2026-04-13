@@ -8,10 +8,19 @@
 <body>
 
     <nav>
-      <a href="{{ url_for('partes.index') }}" class="logo">Partes de Obra</a>
-      <a href="{{ url_for('partes.index') }}">Listado</a>
-      <a href="{{ url_for('partes.nuevo_parte') }}">Nuevo parte</a>
-      <a href="{{ url_for('admin.carga_admin') }}">Administración</a>
+      <div class="nav-left">
+          <a href="{{ url_for('partes.index') }}" class="logo">Partes de Obra</a>
+          <a href="{{ url_for('partes.index') }}">Listado</a>
+          <a href="{{ url_for('partes.nuevo_parte') }}">Nuevo parte</a>
+          {% if session.get('rol') == 'admin' %}
+          <a href="{{ url_for('admin.carga_admin') }}">Administración</a>
+          {% endif %}
+      </div>
+
+      <div class="nav-right">
+          <span>Usuario: {{ session.get('usuario') }}</span>
+          <a href="{{ url_for('admin.logout_admin') }}" class="logout">Salir</a>
+      </div>
     </nav>
 
 <div class="contenedor-nuevo">

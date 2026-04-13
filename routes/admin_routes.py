@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session
 from models.admin_model import *
 import os
+from werkzeug.security import check_password_hash
+
 
 admin_bp = Blueprint('admin', __name__)
 
@@ -22,6 +24,9 @@ def carga_admin():
 
     if not session.get('autenticado'):
         return redirect(url_for("admin.login_admin"))
+    
+    if session.get('rol') != 'admin':
+        return redirect(url_for("partes.index"))
     
     maestras = cargar_maestras_admin()
     return render_template("admin.html", **maestras)
@@ -112,14 +117,20 @@ def login_admin():
 def login_admin_post():
     username_input = request.form.get("username")
     password_input = request.form.get("password")
+    """
     username = os.getenv("ADMIN_USER")
     password = os.getenv("ADMIN_PASSWORD")
-    
-    if username_input == username and password_input == password:
+    """
+    usuario = obtener_usuario(username_input)
+
+    if usuario and check_password_hash(usuario['password'], password_input):
         session['autenticado'] = True
-        return redirect(url_for("admin.carga_admin"))
+        session['usuario'] = usuario['usuario']
+        session['rol'] = usuario['rol']
+
+        return redirect(url_for("partes.index"))
     else:
-        return render_template("login.html", error="Credenciales incorrectas")
+        return render_template("login.html", error="Usuario o contraseña incorrectas")
     
 @admin_bp.route("/admin/logout", methods=["GET"])
 def logout_admin():

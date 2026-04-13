@@ -1,5 +1,6 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, session, url_for
 from models.parte_obra_model import *
+
 
 parte_bp = Blueprint('partes', __name__)
 
@@ -58,9 +59,18 @@ def cargar_maestras():
         "personal":       get_personal_activo(),
     }
 
+# ruta de login para acceder a la aplicacion
+@parte_bp.route("/", methods=["GET", "POST"])   
+def login():
+    return render_template("login.html")
+
+
 # Ruta para listar los partes
-@parte_bp.route('/')
+@parte_bp.route('/partes')
 def index():
+    if not session.get('autenticado'):
+        return redirect(url_for("admin.login_admin"))
+    
     parte_numero = request.args.get('parte_numero')
     fecha_parte = request.args.get('fecha_parte')
     estado_id = request.args.get('estado_id')
@@ -79,6 +89,8 @@ def index():
 
 @parte_bp.route("/partes/nuevo", methods=["GET"])
 def nuevo_parte():
+    if not session.get('autenticado'):
+        return redirect(url_for("admin.login_admin"))
     maestras = cargar_maestras()
     return render_template("nuevo.html", **maestras)
    
@@ -87,6 +99,8 @@ def nuevo_parte():
 
 @parte_bp.route("/partes/nuevo", methods=["POST"])
 def guardar_parte():
+    if not session.get('autenticado'):
+        return redirect(url_for("admin.login_admin"))
     form = request.form
     errores = validar_parte(form)
 
@@ -129,6 +143,9 @@ def guardar_parte():
 # Ruta para mostrar el formulario de edicion
 @parte_bp.route("/partes/editar/<int:parte_id>", methods=["GET"])
 def editar_parte(parte_id):
+    if not session.get('autenticado'):
+        return redirect(url_for("admin.login_admin"))
+    
     parte = obtener_parte_por_id(parte_id)
     if not parte:
         return "Parte no encontrado", 404
@@ -139,6 +156,9 @@ def editar_parte(parte_id):
 
 @parte_bp.route("/partes/editar/<int:parte_id>", methods=["POST"])
 def actualizar_parte_route(parte_id):
+    if not session.get('autenticado'):
+        return redirect(url_for("admin.login_admin"))
+    
     form = request.form
     errores = validar_parte(form)
 
@@ -179,6 +199,9 @@ def actualizar_parte_route(parte_id):
 
 @parte_bp.route("/partes/eliminar/<int:parte_id>", methods=["POST"])
 def borrar_parte_route(parte_id):
+    if not session.get('autenticado'):
+        return redirect(url_for("admin.login_admin"))
+    
     borrar_parte(parte_id)
     return redirect(url_for("partes.index"))
 

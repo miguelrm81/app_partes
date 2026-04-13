@@ -125,6 +125,15 @@ cursor.execute("""
         FOREIGN KEY (parteid) REFERENCES ParteObra(id) ON DELETE CASCADE
     )""")
 
+# Tabla de Usuarios
+cursor.execute("""
+    CREATE TABLE IF NOT EXISTS Usuario (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        usuario TEXT NOT NULL UNIQUE,
+        password TEXT NOT NULL,
+        rol TEXT NOT NULL DEFAULT 'usuario'
+    )""")
+
 conn.commit()
 conn.close()
 
