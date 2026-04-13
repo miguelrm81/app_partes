@@ -64,6 +64,7 @@ APP_PARTESDEOBRA/
     ├── index.html
     ├── login.html
     └── nuevo.html
+```
 
 ## Mejoras con la version anterior
 - Validacion de datos en el front y en el back
