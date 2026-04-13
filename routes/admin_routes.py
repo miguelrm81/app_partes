@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session
 from models.admin_model import *
-
 import os
 
 admin_bp = Blueprint('admin', __name__)
