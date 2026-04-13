@@ -41,14 +41,29 @@ http://127.0.0.1:5000
 
 ## Estructura
 
-```bash
-app.py
-database/
-models/
-routes/
-templates/
-static/
-´´´
+```text
+APP_PARTESDEOBRA/
+├── app.py
+├── README.md
+├── requirements.txt
+├── database/
+│   ├── db.py
+│   ├── init_db.py
+│   └── inserciondatos.py
+├── models/
+│   ├── admin_model.py
+│   └── parte_obra_model.py
+├── routes/
+│   ├── admin_routes.py
+│   └── parte_obra_routes.py
+├── static/
+│   └── styles.css
+└── templates/
+    ├── admin.html
+    ├── editar.html
+    ├── index.html
+    ├── login.html
+    └── nuevo.html
 
 ## Mejoras con la version anterior
 - Validacion de datos en el front y en el back
