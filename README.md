@@ -6,28 +6,34 @@ Python 3.10 o superior
 pip
 
 ## Instalación rápida (Windows PowerShell)
-''' bash
+```bash
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-'''
+```
 
 ## Variables de entorno
 
 Crea un archivo .env en la raíz del proyecto con:
 
+```env
 SECRET_KEY=tu_clave_secreta
 ADMIN_USER=admin
 ADMIN_PASSWORD=tu_password
+```
 
 ## Inicializar base de datos
 
+```bash
 python database/init_db.py
 python database/inserciondatos.py
+```
 
 ## Ejecutar la app
 
+```bash
 python app.py
+```
 
 Abrir en el navegador:
 
@@ -35,12 +41,14 @@ http://127.0.0.1:5000
 
 ## Estructura
 
+```bash
 app.py
 database/
 models/
 routes/
 templates/
 static/
+´´´
 
 ## Mejoras con la version anterior
 - Validacion de datos en el front y en el back
