@@ -15,8 +15,8 @@ pip install -r requirements.txt
 
 Crea un archivo .env en la raíz del proyecto con:
 
-SECRET_KEY=tu_clave_secretaA
-DMIN_USER=admin
+SECRET_KEY=tu_clave_secreta
+ADMIN_USER=admin
 ADMIN_PASSWORD=tu_password
 
 ## Inicializar base de datos
