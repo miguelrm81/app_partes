@@ -130,6 +130,12 @@ nav span {
   background-color: #3C3C3B; 
 }
 
+.contenedor-ver {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 0 16px;
+}
+
 /* TÍTULO DE PÁGINA */
 h1 {
   font-size: 20px;
@@ -338,7 +344,7 @@ th {
 }
 
 td {
-  padding: 8px 14px;
+  padding: 8px 10px;
   border-bottom: 1px solid #e5e5e5;
   font-size: 13px;
 }
@@ -378,6 +384,22 @@ tr:hover td {
   background-color: #c0392b;
   color: white;
 }
+
+.btn-tabla-ver {
+  color: #4372ba;
+  border: 1px solid #4372ba;
+  background: white;
+  padding: 4px 10px;
+  border-radius: 3px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.btn-tabla-ver:hover {
+  background-color: #4372ba;
+  color: white;
+}
+
 
 .btn-tabla-activar {
   color: #2DB4AD;
@@ -594,4 +616,24 @@ tr:hover td {
     background-color: #2DB4AD;
     color: white !important;
     border-color: #2DB4AD !important;
+}
+
+/* VER PARTES */
+.cabecera-pdf {
+  display: flex;
+  justify-content: space-between; 
+}
+.cabecera-pdf img {
+  width: 200px;
+  height: 130px; 
+  align-items: start;
+  margin-bottom: 10px;
+}
+
+.cabecera-pdf p {
+  font-size: 16px;
+  color: #3C3C3B;
+  margin: 10px;
+  padding: 0px;
+  text-align: center;
 }

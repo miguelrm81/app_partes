@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Nuevo Parte</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+     <nav>
+        <div class="nav-left">
+            <a href="{{ url_for('partes.index') }}" class="logo">Partes de Obra</a>
+            <a href="{{ url_for('partes.index') }}">Listado</a>
+            <a href="{{ url_for('partes.nuevo_parte') }}">Nuevo parte</a>
+            {% if session.get('rol') == 'admin' %}
+            <a href="{{ url_for('admin.carga_admin') }}">Administración</a>
+            {% endif %}
+        </div>
+
+        <div class="nav-right">
+            <span>Usuario: {{ session.get('usuario') }}</span>
+            <a href="{{ url_for('admin.logout_admin') }}" class="logout">Salir</a>
+        </div>
+    </nav>
+
+<div class="contenedor-ver">
+    <h1>Visualización Parte de Obra Número {{ parte.parte_numero }}</h1>
+    <div class="cabecera-pdf">
+        <img src="{{ url_for('static', filename='imagen/logotipo.png') }}" >
+        <div>
+        <p><u><strong>Parte Número:</strong></u></p>
+        <p><strong>{{ parte.parte_numero }}</strong></p>
+        </div>
+    </div>
+    <div class="tres-columnas">
+        <div>
+            <h2>Identificacion del parte</h2>
+            <div>    
+                <p><strong>Parte Número:</strong> {{ parte.parte_numero }}</p>
+                <p><strong>Fecha del parte:</strong> {{ parte.fecha_parte }}</p>
+                <p><strong>Fecha creación:</strong> {{ parte.fecha_registro_utc }}</p>
+                <p><strong>Estado:</strong> {{ parte.estado }}</p>
+                <p><strong>Canal:</strong> {{ parte.canal_codigo }} - {{ parte.canal_nombre }}</p>
+            </div>
+        </div> 
+        <div>
+            <h2>Responsable y relevo</h2>
+            <p><strong>Responsable:</strong> {{ parte.responsable_nombre }} {{ parte.responsable_apellido1 }}</p>
+            <p><strong>Relevo:</strong> {{ parte.relevo_nombre or '-' }} {{ parte.relevo_apellido1 or '-' }}</p>
+            <p><strong>Hora inicio relevo:</strong> {{ parte.hora_inicio_relevo or '-' }}</p>
+            <p><strong>Hora fin relevo:</strong> {{ parte.hora_fin_relevo or '-' }}</p>
+        </div>   
+        <div>
+            <h2>Ubicacion y terreno</h2>
+            <p><strong>PK Inicio:</strong> {{ parte.pk_inicio_km }}.{{ parte.pk_inicio_m | metros }} km</p>
+            <p><strong>PK Fin:</strong> {{ parte.pk_fin_km }}.{{ parte.pk_fin_m | metros }} km</p>
+            <p><strong>Tipo de terreno:</strong> {{ parte.tipo_terreno }}</p>
+            <p><strong>Tipo de sección:</strong> {{ parte.seccion_tipo }}</p>
+        </div>
+    </div>
+    <div class="dos-columnas">
+        <div>
+            <h2>Actividades y Tiempos</h2>
+            <p><strong>Total Actividades:</strong> {{ parte.total_actividades_min }}</p>
+            <p><strong>Hay exceso de horas:</strong> 
+                {% if parte.exceso_justificado %}
+                    <span style="color: rgb(1, 159, 1);">Si</span>
+                {% else %}
+                    <span style="color: rgb(146, 7, 7);">No</span>
+                {% endif %}
+            </p>
+            <p><strong>Motivo Exceso:</strong> {{ parte.motivo_exceso or '-' }}</p>
+            <p><strong>Justificacion:</strong> {{ parte.justificacion_exceso or '-' }}</p>
+        </div>
+    
+        <div>
+            <h2>Incidencias</h2>
+            <p><strong>Hubo averias:</strong> {% if parte.hubo_averias %}
+                    <span style="color: rgb(1, 159, 1);">Si</span>
+                {% else %}
+                    <span style="color: rgb(146, 7, 7);">No</span>
+                {% endif %}</p>
+            <p><strong>Hubo Paradas:</strong> {% if parte.hubo_paradas %}
+                    <span style="color: rgb(1, 159, 1);">Si</span>
+                {% else %}
+                    <span style="color: rgb(146, 7, 7);">No</span>
+                {% endif %}</p>
+        
+            <p><strong>Observaciones:</strong></p>
+            <p>{{ parte.observaciones or '-' }}</p>
+        </div>
+    </div>
+    <div class="botones-form">
+            <a href="{{ url_for('partes.index') }}" class="btn-verde">Volver</a>
+    </div>
+</div>
+</body>
+</html>
+

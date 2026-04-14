@@ -218,3 +218,27 @@ def contar_partes(parte_numero=None, fecha_parte=None, estado_id=None, responsab
     conn.close()
     return total
 
+def obtener_parte_ver(parte_id):
+    conn = get_connection()
+    row = conn.execute("""
+        SELECT
+            p.*,
+            per.nombre              AS responsable_nombre,
+            per.apellido1           AS responsable_apellido1,
+            rel.nombre              AS relevo_nombre,
+            rel.apellido1           AS relevo_apellido1,
+            tt.descripcion          AS tipo_terreno,
+            st.descripcion          AS seccion_tipo,
+            e.descripcion           AS estado,
+            m.descripcion           AS motivo_exceso
+        FROM ParteObra p
+        LEFT JOIN Personal          per ON p.responsable_id  = per.id
+        LEFT JOIN Personal          rel ON p.relevo_id        = rel.id
+        LEFT JOIN TipoTerreno       tt  ON p.tipo_terreno_id  = tt.id
+        LEFT JOIN SeccionTipo       st  ON p.seccion_tipo_id  = st.id
+        LEFT JOIN EstadoParte       e   ON p.estado_id        = e.id
+        LEFT JOIN MotivoExcesoHoras m   ON p.motivo_exceso_id = m.id
+        WHERE p.id = ?
+    """, (parte_id,)).fetchone()
+    conn.close()
+    return row

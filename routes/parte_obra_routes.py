@@ -152,6 +152,21 @@ def editar_parte(parte_id):
     maestras = cargar_maestras()
     return render_template("editar.html", parte=parte, **maestras)
 
+# Ruta para ver partes sin editar
+
+@parte_bp.route("/partes/ver/<int:parte_id>", methods=["GET"])
+def ver_parte(parte_id):
+    if not session.get('autenticado'):
+        return redirect(url_for("admin.login_admin"))
+    
+    parte = obtener_parte_ver(parte_id)
+    
+    if not parte:
+        return "Parte no encontrado", 404
+    
+    return render_template("ver.html", parte=parte)
+
+
 # Ruta para guardar los cambios de un parte editado
 
 @parte_bp.route("/partes/editar/<int:parte_id>", methods=["POST"])
@@ -204,4 +219,6 @@ def borrar_parte_route(parte_id):
     
     borrar_parte(parte_id)
     return redirect(url_for("partes.index"))
+
+# Ruta para obtener el aprte completo para la vista de detalle
 

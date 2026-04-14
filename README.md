@@ -81,8 +81,8 @@ APP_PARTESDEOBRA/
 
 ## Proximos cambios version 2.0
 
-- Crear sistema de usuarios y autenticacion completa en la app mediante werkzeug.security
-- Mejora visual de las plantillas actualizando bordeados y con un estilo mas moderno
-- Insercion de archivos y manejo de rutas en la base de datos
-- Uso de la tabla maquinaria dentro de los formularios
-- Exportacion de partes a PDF o Excel
+- [x] Crear sistema de usuarios y autenticacion completa en la app mediante werkzeug.security 
+- [] Mejora visual de las plantillas actualizando bordeados y con un estilo mas moderno
+- [] Insercion de archivos y manejo de rutas en la base de datos
+- [] Uso de la tabla maquinaria dentro de los formularios
+- [] Exportacion de partes a PDF o Excel

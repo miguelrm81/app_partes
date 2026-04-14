@@ -112,6 +112,8 @@
                             <td>
                                 <a href="{{ url_for('partes.editar_parte', parte_id=p['id']) }}"
                                 class="btn-tabla-editar">Editar</a>
+                                <a href="{{ url_for('partes.ver_parte', parte_id=p['id']) }}"
+                                class="btn-tabla-ver">Ver</a>
 
                                 <form method="POST" action="{{ url_for('partes.borrar_parte_route', parte_id=p['id']) }}" style="display:inline;" onsubmit="return confirm('¿Seguro que quieres borrar este parte?')">
                                     <button type="submit" class="btn-tabla-borrar">Borrar</button>

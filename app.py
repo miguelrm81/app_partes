@@ -12,6 +12,12 @@ app.secret_key = os.getenv("SECRET_KEY")
 app.register_blueprint(parte_bp)
 app.register_blueprint(admin_bp)
 
+def convertir_metros(valor):
+    if valor is None:
+        return '000'
+    return str(valor).zfill(3)
+
+app.jinja_env.filters['metros'] = convertir_metros
 
 if __name__ == "__main__":
     app.run(debug=True)
