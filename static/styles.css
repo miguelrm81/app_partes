@@ -637,3 +637,11 @@ tr:hover td {
   padding: 0px;
   text-align: center;
 }
+.firma {
+  width: 200px;
+  height: 130px; 
+  align-items: start;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 2px solid #B3B4B2;
+}

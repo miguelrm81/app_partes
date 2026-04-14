@@ -98,8 +98,8 @@
                     {% for p in partes %}
                         <tr>
                             <td>{{ p.parte_numero }}</td>
-                            <td>{{ p.fecha_parte }}</td>
-                            <td>{{ p.fecha_registro_utc }}</td>
+                            <td>{{ p.fecha_parte | fecha}}</td>
+                            <td>{{ p.fecha_registro_utc | fecha }}</td>
                             <td>{{ p.canal_nombre }}</td>
                             <td>{{ p.responsable }}</td>
                             <td>{{ p.relevo or "-" }}</td>

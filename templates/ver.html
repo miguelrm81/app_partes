@@ -37,8 +37,8 @@
             <h2>Identificacion del parte</h2>
             <div>    
                 <p><strong>Parte Número:</strong> {{ parte.parte_numero }}</p>
-                <p><strong>Fecha del parte:</strong> {{ parte.fecha_parte }}</p>
-                <p><strong>Fecha creación:</strong> {{ parte.fecha_registro_utc }}</p>
+                <p><strong>Fecha del parte:</strong> {{ parte.fecha_parte | fecha }}</p>
+                <p><strong>Fecha creación:</strong> {{ parte.fecha_registro_utc | fecha }}</p>
                 <p><strong>Estado:</strong> {{ parte.estado }}</p>
                 <p><strong>Canal:</strong> {{ parte.canal_codigo }} - {{ parte.canal_nombre }}</p>
             </div>
@@ -90,6 +90,11 @@
             <p>{{ parte.observaciones or '-' }}</p>
         </div>
     </div>
+    <p> En _________ a ___ de __________ del _________</p>
+    <div class="firma"> 
+        <label>Firma Responsable:</label>
+    </div>
+    
     <div class="botones-form">
             <a href="{{ url_for('partes.index') }}" class="btn-verde">Volver</a>
     </div>
