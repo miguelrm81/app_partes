@@ -98,16 +98,16 @@ APP_PARTESDEOBRA/
 ## Opciones de dockerizacion
 Archivos de dockerizacion preparados para clonar y arrancar la app desde docker
 
-### Construir y arrancar
+## Ejecución con Docker
 
 ``` bash
-docker-compose up --build
+docker compose up --build
 ```
-### Arrancar en segundo plano
 
-``` bash
-docker-compose up -d --build
-``` 
+Accede a http://localhost:5000
+Usuario admin: admin / Teciman
+Usuario normal: usuario1 / 1234
+
 ### Parar
 
 ``` bash
