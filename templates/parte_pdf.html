@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Parte en pdf</title>
+  <style>
+    @page {
+        size: A4 portrait;
+        margin: 1.5cm 2cm 1.5cm 2cm;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        font-size: 11px;
+        color: #3C3C3B;
+        margin: 0;
+        padding: 0;
+    }
+
+    h2 {
+        font-size: 10px;
+        background-color: #2DB4AD;
+        color: white;
+        padding: 5px 8px;
+        margin: 0;
+    }
+
+    .seccion {
+        /*border: 1px solid #B3B4B2;*/
+        margin-bottom: 0;
+    }
+
+    .seccion-cuerpo {
+        padding: 6px 8px;
+    }
+
+    p {
+        margin: 3px 0;
+    }
+  </style>
+</head>
+<body>
+<div style="width: 100%; max-width: 17cm">    
+    <table style="width:100%; margin-bottom:16px;">
+    <tr>
+        <td style="width:20%; vertical-align:middle;">
+        <img src="{{ ruta_logo }}" style="width:100%;">
+        </td>
+        <td style="text-align:right; vertical-align:top;">
+        <p><u><strong>Parte Número:</strong></u></p>
+        <p><strong>{{ parte.parte_numero }}</strong></p>
+        </td>
+    </tr>
+    </table>
+
+    <table style="width:100%; margin-bottom:10px; border-collapse:collapse;">
+    <tr>
+        <td style="width:33%; vertical-align:top; padding-right:8px;">
+        <div class="seccion">
+            <h2>Identificación del parte</h2>
+            <div class="seccion-cuerpo">
+            <p><strong>Nº Parte:</strong> {{ parte.parte_numero }}</p>
+            <p><strong>Fecha parte:</strong> {{ parte.fecha_parte | fecha }}</p>
+            <p><strong>Fecha creación:</strong> {{ parte.fecha_registro_utc | fecha }}</p>
+            <p><strong>Estado:</strong> {{ parte.estado }}</p>
+            <p><strong>Canal:</strong> {{ parte.canal_codigo }} - {{ parte.canal_nombre }}</p>
+            </div>
+        </div>
+        </td>
+        <td style="width:33%; vertical-align:top; padding-right:8px;">
+        <div class="seccion">
+            <h2>Responsable y relevo</h2>
+            <div class="seccion-cuerpo">
+            <p><strong>Responsable:</strong> {{ parte.responsable_nombre }} {{ parte.responsable_apellido1 }}</p>
+            <p><strong>Relevo:</strong> {{ parte.relevo_nombre or '-' }} {{ parte.relevo_apellido1 or '' }}</p>
+            <p><strong>Hora inicio:</strong> {{ parte.hora_inicio_relevo or '-' }}</p>
+            <p><strong>Hora fin:</strong> {{ parte.hora_fin_relevo or '-' }}</p>
+            </div>
+        </div>
+        </td>
+        <td style="width:33%; vertical-align:top;">
+        <div class="seccion">
+            <h2>Ubicación y terreno</h2>
+            <div class="seccion-cuerpo">
+            <p><strong>PK Inicio:</strong> {{ parte.pk_inicio_km }}.{{ parte.pk_inicio_m | metros }} m</p>
+            <p><strong>PK Fin:</strong> {{ parte.pk_fin_km }}.{{ parte.pk_fin_m | metros }} m</p>
+            <p><strong>Terreno:</strong> {{ parte.tipo_terreno or '-' }}</p>
+            <p><strong>Sección:</strong> {{ parte.seccion_tipo or '-' }}</p>
+            </div>
+        </div>
+        </td>
+    </tr>
+    </table>
+
+    <table style="width:100%; margin-bottom:10px; border-collapse:collapse;">
+    <tr>
+        <td style="width:50%; vertical-align:top; padding-right:8px;">
+        <div class="seccion">
+            <h2>Actividades y tiempos</h2>
+            <div class="seccion-cuerpo">
+            <p><strong>Total actividades:</strong> {{ parte.total_actividades_min or '-' }}</p>
+            <p><strong>Exceso de horas:</strong>
+                {% if parte.exceso_justificado %}
+                <span style="color:#2DB4AD;">Sí</span>
+                {% else %}
+                <span style="color:#c0392b;">No</span>
+                {% endif %}
+            </p>
+            <p><strong>Motivo:</strong> {{ parte.motivo_exceso or '-' }}</p>
+            <p><strong>Justificación:</strong> {{ parte.justificacion_exceso or '-' }}</p>
+            </div>
+        </div>
+        </td>
+        <td style="width:50%; vertical-align:top;">
+        <div class="seccion">
+            <h2>Incidencias</h2>
+            <div class="seccion-cuerpo">
+            <p><strong>Averías:</strong>
+                {% if parte.hubo_averias %}
+                <span style="color:#2DB4AD;">Sí</span>
+                {% else %}
+                <span style="color:#c0392b;">No</span>
+                {% endif %}
+            </p>
+            <p><strong>Paradas:</strong>
+                {% if parte.hubo_paradas %}
+                <span style="color:#2DB4AD;">Sí</span>
+                {% else %}
+                <span style="color:#c0392b;">No</span>
+                {% endif %}
+            </p>
+            <p><strong>Observaciones:</strong></p>
+            <p>{{ parte.observaciones or '-' }}</p>
+            </div>
+        </div>
+        </td>
+    </tr>
+    </table>
+
+    <p style="margin-top:180px;">
+    En _________ a ___ de __________ de _________
+    </p>
+
+    <table style="width:100%; margin-top:60px;">
+    <tr>
+        <td style="width:35%; text-align:center; border-top:1px solid #3C3C3B; padding-top:6px;">
+        <p>Firma Responsable</p>
+        <p>{{ parte.responsable_nombre }} {{ parte.responsable_apellido1 }}</p>
+        </td>
+        <td style="width:65%;">
+        </td>
+    </tr>
+    </table>

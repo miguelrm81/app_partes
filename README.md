@@ -113,7 +113,7 @@ APP_PARTESDEOBRA/
 - [ ] Insercion de archivos y manejo de rutas en base de datos
 - [ ] Uso de la tabla Maquinaria dentro de formularios
 - [ ] Uso de la tabla Material dentro de formularios
-- [ ] Exportacion de partes a PDF o Excel
+- [x] Exportacion de partes a PDF o Excel
 
 ## Notas
 

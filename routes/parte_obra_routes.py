@@ -1,5 +1,8 @@
-from flask import Blueprint, render_template, request, redirect, session, url_for
+import os
+from flask import Blueprint, render_template, request, redirect, session, url_for, make_response
 from models.parte_obra_model import *
+from xhtml2pdf import pisa
+from io import BytesIO
 
 
 parte_bp = Blueprint('partes', __name__)
@@ -220,5 +223,25 @@ def borrar_parte_route(parte_id):
     borrar_parte(parte_id)
     return redirect(url_for("partes.index"))
 
-# Ruta para obtener el aprte completo para la vista de detalle
+# Ruta para descargar parte en pdf
 
+@parte_bp.route("/partes/pdf/<int:parte_id>", methods=["GET"])
+def descargar_pdf(parte_id):
+    if not session.get('autenticado'):
+        return redirect(url_for("admin.login_admin"))
+    
+    parte = obtener_parte_ver(parte_id)
+    if not parte:
+        return "Parte no encontrado", 404
+    
+    ruta_logo = os.path.join(os.path.abspath('static'), 'imagen', 'logotipo.png')
+    html = render_template("parte_pdf.html", parte=parte, ruta_logo=ruta_logo)
+
+    pdf = BytesIO()
+    pisa.CreatePDF(html, dest=pdf)
+
+    response = make_response(pdf.getvalue())
+    response.headers['Content-Type'] = 'application/pdf'
+    response.headers['Content-Disposition'] = f'attachment; filename=parte_{parte["parte_numero"]}.pdf'
+
+    return response
