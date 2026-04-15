@@ -56,7 +56,7 @@ def insertar_maestro(maestro):
             errores['telefono'] = "El teléfono tiene que tener 9 digitos" 
         if errores:
             maestras = cargar_maestras_admin()
-            return render_template("admin.html", errores=errores, **maestras)
+            return render_template("admin.html",form=request.form, errores=errores, **maestras)
         
         if validar_personal(datos['nombre'], datos['apellido1'], datos['apellido2']):
             errores['personal'] = "Ya existe una persona con ese nombre y apellidos"
@@ -86,7 +86,7 @@ def insertar_maestro(maestro):
 
     if errores:
         maestras = cargar_maestras_admin()
-        return render_template("admin.html", errores=errores, **maestras)
+        return render_template("admin.html", form=request.form, errores=errores, **maestras)
     
     return redirect(url_for("admin.carga_admin"))
   
