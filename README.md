@@ -95,6 +95,30 @@ APP_PARTESDEOBRA/
     |-- nuevo.html
     `-- ver.html
 ```
+## Opciones de dockerizacion
+Archivos de dockerizacion preparados para clonar y arrancar la app desde docker
+
+### Construir y arrancar
+
+``` bash
+docker-compose up --build
+```
+### Arrancar en segundo plano
+
+``` bash
+docker-compose up -d --build
+``` 
+### Parar
+
+``` bash
+docker-compose down
+``` 
+
+### Ver logs
+
+``` bash
+docker-compose logs
+``` 
 
 ## Mejoras implementadas
 
