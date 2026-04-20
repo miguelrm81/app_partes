@@ -8,3 +8,4 @@ database/*.db
 *.log           
 Thumbs.db       
 desktop.ini
+*.md
